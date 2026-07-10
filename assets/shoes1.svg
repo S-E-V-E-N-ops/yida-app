@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <!-- Background -->
+  <rect width="400" height="400" rx="16" fill="#F0EDEA"/>
+  <!-- White Sneakers - side view -->
+  <g transform="translate(200,215)" fill="none" stroke="#8B7E74" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Sole -->
+    <path d="M-120,35 Q-122,25 -110,20 L115,20 Q128,25 125,35 L120,45 Q118,52 108,52 L-108,52 Q-118,52 -120,45 Z" stroke-width="2"/>
+    <!-- Midsole -->
+    <path d="M-115,20 Q-117,12 -105,8 L112,8 Q122,12 120,20 Z" stroke-width="1.5" opacity="0.6"/>
+    <!-- Outsole tread -->
+    <line x1="-100" y1="48" x2="105" y2="48" stroke-width="0.8" opacity="0.25"/>
+    <!-- Shoe upper - body -->
+    <path d="M-105,8 L-105,-35 Q-105,-50 -90,-55 L-20,-65 Q0,-68 15,-60 L60,-48 Q80,-42 95,-35 L115,0 Q120,8 120,20" stroke-width="2"/>
+    <!-- Toe box shape -->
+    <path d="M-105,-35 Q-100,-52 -85,-58 L-40,-65 Q-20,-68 0,-65" stroke-width="1.5" opacity="0.5"/>
+    <!-- Toe cap line -->
+    <path d="M-105,-20 Q-60,-30 -20,-32" stroke-width="1.2" opacity="0.35"/>
+    <!-- Collar / ankle opening -->
+    <path d="M-80,-65 Q-40,-78 0,-70 Q20,-65 30,-55" stroke-width="2" opacity="0.6"/>
+    <!-- Tongue -->
+    <path d="M-55,-65 L-45,-85 Q-40,-92 -30,-90 L-10,-80 L-10,-65" stroke-width="1.8" opacity="0.5"/>
+    <!-- Eyelet stay panel -->
+    <path d="M-50,-62 L-40,-78 L-5,-68" stroke-width="1" opacity="0.35"/>
+    <!-- Lace eyelets -->
+    <circle cx="-42" cy="-72" r="2.5" stroke-width="1.2" opacity="0.5"/>
+    <circle cx="-35" cy="-76" r="2.5" stroke-width="1.2" opacity="0.5"/>
+    <circle cx="-26" cy="-78" r="2.5" stroke-width="1.2" opacity="0.5"/>
+    <circle cx="-17" cy="-76" r="2.5" stroke-width="1.2" opacity="0.5"/>
+    <!-- Laces -->
+    <path d="M-42,-72 L-28,-74" stroke-width="1.5" opacity="0.45"/>
+    <path d="M-35,-76 L-20,-74" stroke-width="1.5" opacity="0.45"/>
+    <path d="M-26,-78 L-12,-72" stroke-width="1.5" opacity="0.45"/>
+    <!-- Heel counter -->
+    <path d="M90,-35 L115,0 Q120,8 120,20 L100,20 L90,-10 Q85,-25 90,-35" stroke-width="1.5" opacity="0.4"/>
+    <!-- Swoosh-like side panel -->
+    <path d="M-90,-15 Q-20,-35 100,-15" stroke-width="2.5" opacity="0.3"/>
+  </g>
+</svg>

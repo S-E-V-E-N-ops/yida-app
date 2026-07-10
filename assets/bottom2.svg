@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <!-- Background -->
+  <rect width="400" height="400" rx="16" fill="#E8E5E2"/>
+  <!-- Black Dress Pants - front view -->
+  <g transform="translate(200,205)" fill="none" stroke="#3A3A3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Left leg - tapered -->
+    <path d="M-48,-120 L-48,120 Q-48,130 -38,130 L-6,130 Q0,130 0,120 L0,25"/>
+    <!-- Right leg - tapered -->
+    <path d="M48,-120 L48,120 Q48,130 38,130 L6,130 Q0,130 0,120 L0,25"/>
+    <!-- Waistband -->
+    <path d="M-53,-120 L53,-120 L53,-108 L-53,-108 Z" stroke-width="2"/>
+    <!-- Waistband inner line -->
+    <line x1="-50" y1="-115" x2="50" y2="-115" stroke-width="0.8" opacity="0.3"/>
+    <!-- Belt loops -->
+    <line x1="-42" y1="-125" x2="-42" y2="-108" stroke-width="1.2" opacity="0.4"/>
+    <line x1="-20" y1="-125" x2="-20" y2="-108" stroke-width="1.2" opacity="0.4"/>
+    <line x1="20" y1="-125" x2="20" y2="-108" stroke-width="1.2" opacity="0.4"/>
+    <line x1="42" y1="-125" x2="42" y2="-108" stroke-width="1.2" opacity="0.4"/>
+    <!-- Fly -->
+    <line x1="0" y1="-108" x2="0" y2="-25" stroke-width="1.2" opacity="0.4"/>
+    <!-- Hook closure -->
+    <path d="M-3,-110 L3,-110" stroke-width="1.5" opacity="0.5"/>
+    <!-- Left front pocket opening -->
+    <path d="M-45,-105 Q-30,-100 -5,-105" stroke-width="1.2" opacity="0.4"/>
+    <!-- Right front pocket opening -->
+    <path d="M45,-105 Q30,-100 5,-105" stroke-width="1.2" opacity="0.4"/>
+    <!-- Pleats -->
+    <line x1="-20" y1="-100" x2="-22" y2="-60" stroke-width="1" opacity="0.3"/>
+    <line x1="20" y1="-100" x2="22" y2="-60" stroke-width="1" opacity="0.3"/>
+    <!-- Center crease - left leg -->
+    <line x1="-25" y1="-60" x2="-20" y2="125" stroke-width="0.8" opacity="0.2"/>
+    <!-- Center crease - right leg -->
+    <line x1="25" y1="-60" x2="20" y2="125" stroke-width="0.8" opacity="0.2"/>
+    <!-- Inseam -->
+    <line x1="0" y1="-25" x2="0" y2="125" stroke-width="0.8" opacity="0.25"/>
+    <!-- Hems -->
+    <path d="M-38,125 L-6,125" stroke-width="2" opacity="0.5"/>
+    <path d="M6,125 L38,125" stroke-width="2" opacity="0.5"/>
+  </g>
+</svg>

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <!-- Background -->
+  <rect width="400" height="400" rx="16" fill="#E8E5E2"/>
+  <!-- Black Hoodie - front view -->
+  <g transform="translate(200,195)" fill="none" stroke="#3A3A3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Body -->
+    <path d="M-60,-85 L-60,105 Q-60,115 -50,115 L50,115 Q60,115 60,105 L60,-85"/>
+    <!-- Left sleeve -->
+    <path d="M-60,-85 L-105,-40 Q-112,-32 -105,-25 L-85,65 Q-82,75 -75,75 L-60,75"/>
+    <!-- Right sleeve -->
+    <path d="M60,-85 L105,-40 Q112,-32 105,-25 L85,65 Q82,75 75,75 L60,75"/>
+    <!-- Hood shape -->
+    <path d="M-60,-85 Q-60,-120 -40,-130 Q0,-145 40,-130 Q60,-120 60,-85"/>
+    <!-- Hood opening -->
+    <path d="M-35,-95 Q0,-78 35,-95" stroke-width="2.5"/>
+    <!-- Drawstrings -->
+    <line x1="-15,-90" x2="-18,-20" stroke-width="1.5" opacity="0.6"/>
+    <line x1="15,-90" x2="18,-20" stroke-width="1.5" opacity="0.6"/>
+    <!-- Drawstring tips -->
+    <circle cx="-18" cy="-20" r="2.5" fill="#3A3A3A" stroke="none" opacity="0.6"/>
+    <circle cx="18" cy="-20" r="2.5" fill="#3A3A3A" stroke="none" opacity="0.6"/>
+    <!-- Kangaroo pocket -->
+    <path d="M-45,15 Q-45,10 -40,5 L-5,5 Q0,5 0,10 L0,45 Q0,55 -10,55 L-35,55 Q-45,55 -45,45 Z" stroke-width="1.8" opacity="0.6"/>
+    <path d="M45,15 Q45,10 40,5 L5,5 Q0,5 0,10 L0,45 Q0,55 10,55 L35,55 Q45,55 45,45 Z" stroke-width="1.8" opacity="0.6"/>
+    <!-- Pocket top edge -->
+    <path d="M-45,5 L45,5" stroke-width="1.5" opacity="0.5"/>
+    <!-- Cuffs -->
+    <path d="M-82,70 L-60,70" stroke-width="1.5" opacity="0.5"/>
+    <path d="M82,70 L60,70" stroke-width="1.5" opacity="0.5"/>
+    <!-- Hem -->
+    <path d="M-55,115 L55,115" stroke-width="2.5"/>
+    <!-- Center line -->
+    <line x1="0" y1="-80" x2="0" y2="5" stroke-width="1" opacity="0.15"/>
+  </g>
+</svg>

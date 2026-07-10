@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <!-- Background -->
+  <rect width="400" height="400" rx="16" fill="#F0EDEA"/>
+  <!-- T-shirt - front view -->
+  <g transform="translate(200,195)" fill="none" stroke="#8B7E74" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Body -->
+    <path d="M-60,-95 L-60,95 Q-60,105 -50,105 L50,105 Q60,105 60,95 L60,-95"/>
+    <!-- Left sleeve -->
+    <path d="M-60,-95 L-100,-55 Q-108,-47 -100,-40 L-60,-65"/>
+    <!-- Right sleeve -->
+    <path d="M60,-95 L100,-55 Q108,-47 100,-40 L60,-65"/>
+    <!-- Round neckline -->
+    <path d="M-25,-95 Q0,-80 25,-95" stroke-width="2.5"/>
+    <!-- Shoulder seams -->
+    <path d="M-25,-95 L-60,-95" opacity="0.5"/>
+    <path d="M25,-95 L60,-95" opacity="0.5"/>
+    <!-- Side seams -->
+    <path d="M-60,-95 L-60,95" opacity="0.3"/>
+    <path d="M60,-95 L60,95" opacity="0.3"/>
+    <!-- Hem -->
+    <path d="M-55,105 L55,105" stroke-width="2.5"/>
+    <!-- Subtle center fold -->
+    <line x1="0" y1="-75" x2="0" y2="100" stroke-width="1" opacity="0.2"/>
+    <!-- Sleeve hems -->
+    <path d="M-100,-40 L-70,-58" opacity="0.4"/>
+    <path d="M100,-40 L70,-58" opacity="0.4"/>
+  </g>
+</svg>

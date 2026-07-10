@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <!-- Background -->
+  <rect width="400" height="400" rx="16" fill="#D6E4EF"/>
+  <!-- Blue Shirt - front view -->
+  <g transform="translate(200,195)" fill="none" stroke="#4A7296" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Body -->
+    <path d="M-55,-100 L-55,100 Q-55,110 -45,110 L45,110 Q55,110 55,100 L55,-100"/>
+    <!-- Left sleeve -->
+    <path d="M-55,-100 L-105,-50 Q-112,-42 -105,-35 L-55,-70"/>
+    <!-- Right sleeve -->
+    <path d="M55,-100 L105,-50 Q112,-42 105,-35 L55,-70"/>
+    <!-- Collar - shirt collar -->
+    <path d="M-30,-100 L-30,-108 Q-30,-118 -20,-118 L20,-118 Q30,-118 30,-108 L30,-100"/>
+    <!-- Collar stand -->
+    <path d="M-20,-100 Q0,-85 20,-100" stroke-width="2.5"/>
+    <!-- Left collar point -->
+    <path d="M-30,-100 L-35,-88" stroke-width="1.5"/>
+    <!-- Right collar point -->
+    <path d="M30,-100 L35,-88" stroke-width="1.5"/>
+    <!-- Button placket -->
+    <line x1="0" y1="-85" x2="0" y2="105" stroke-width="1.5" opacity="0.6"/>
+    <!-- Buttons -->
+    <circle cx="0" cy="-65" r="3" fill="#4A7296" stroke="none" opacity="0.7"/>
+    <circle cx="0" cy="-30" r="3" fill="#4A7296" stroke="none" opacity="0.7"/>
+    <circle cx="0" cy="5" r="3" fill="#4A7296" stroke="none" opacity="0.7"/>
+    <circle cx="0" cy="40" r="3" fill="#4A7296" stroke="none" opacity="0.7"/>
+    <circle cx="0" cy="75" r="3" fill="#4A7296" stroke="none" opacity="0.7"/>
+    <!-- Left chest pocket -->
+    <path d="M-45,-65 L-15,-65 L-15,-35 L-45,-35 Z" stroke-width="1.5" opacity="0.5"/>
+    <!-- Hem -->
+    <path d="M-50,110 L50,110" stroke-width="2.5"/>
+    <!-- Sleeve hems -->
+    <path d="M-105,-35 L-65,-65" opacity="0.4"/>
+    <path d="M105,-35 L65,-65" opacity="0.4"/>
+  </g>
+</svg>

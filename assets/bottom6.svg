@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <!-- Background -->
+  <rect width="400" height="400" rx="16" fill="#E6DFD3"/>
+  <!-- Khaki Shorts - front view -->
+  <g transform="translate(200,200)" fill="none" stroke="#6B5E52" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Left leg -->
+    <path d="M-48,-120 L-55,60 Q-55,70 -45,70 L-8,70 Q0,70 0,60 L0,20"/>
+    <!-- Right leg -->
+    <path d="M48,-120 L55,60 Q55,70 45,70 L8,70 Q0,70 0,60 L0,20"/>
+    <!-- Waistband -->
+    <path d="M-53,-120 L53,-120 L53,-108 L-53,-108 Z" stroke-width="2"/>
+    <!-- Belt loops -->
+    <line x1="-45" y1="-125" x2="-45" y2="-108" stroke-width="1.2" opacity="0.5"/>
+    <line x1="-25" y1="-125" x2="-25" y2="-108" stroke-width="1.2" opacity="0.5"/>
+    <line x1="25" y1="-125" x2="25" y2="-108" stroke-width="1.2" opacity="0.5"/>
+    <line x1="45" y1="-125" x2="45" y2="-108" stroke-width="1.2" opacity="0.5"/>
+    <!-- Fly zipper -->
+    <line x1="0" y1="-108" x2="0" y2="-40" stroke-width="1.5" opacity="0.45"/>
+    <!-- Zipper pull -->
+    <circle cx="0" cy="-40" r="2" fill="#6B5E52" stroke="none" opacity="0.45"/>
+    <!-- Left front pocket -->
+    <path d="M-45,-100 L-10,-100 L-15,-60 L-45,-60 Z" stroke-width="1.5" opacity="0.45"/>
+    <!-- Right front pocket -->
+    <path d="M45,-100 L10,-100 L15,-60 L45,-60 Z" stroke-width="1.5" opacity="0.45"/>
+    <!-- Pocket opening arcs -->
+    <path d="M-45,-100 Q-30,-105 -10,-100" stroke-width="1" opacity="0.35"/>
+    <path d="M45,-100 Q30,-105 10,-100" stroke-width="1" opacity="0.35"/>
+    <!-- Side seams -->
+    <line x1="-48" y1="-108" x2="-55" y2="65" stroke-width="0.8" opacity="0.2"/>
+    <line x1="48" y1="-108" x2="55" y2="65" stroke-width="0.8" opacity="0.2"/>
+    <!-- Inseam -->
+    <line x1="0" y1="20" x2="0" y2="65" stroke-width="0.8" opacity="0.25"/>
+    <!-- Hems -->
+    <path d="M-45,65 L-8,65" stroke-width="2" opacity="0.5"/>
+    <path d="M8,65 L45,65" stroke-width="2" opacity="0.5"/>
+  </g>
+</svg>

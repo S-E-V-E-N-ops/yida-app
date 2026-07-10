@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <!-- Background -->
+  <rect width="400" height="400" rx="16" fill="#EDE6DA"/>
+  <!-- Beige Skirt - front view -->
+  <g transform="translate(200,200)" fill="none" stroke="#8B7E74" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Skirt body - A-line -->
+    <path d="M-35,-120 L-65,120 Q-65,130 -55,130 L55,130 Q65,130 65,120 L35,-120"/>
+    <!-- Waistband -->
+    <path d="M-38,-120 L38,-120 L38,-108 L-38,-108 Z" stroke-width="2.5"/>
+    <!-- Waistband detail -->
+    <line x1="-35" y1="-115" x2="35" y2="-115" stroke-width="0.8" opacity="0.3"/>
+    <!-- Center seam -->
+    <line x1="0" y1="-108" x2="0" y2="125" stroke-width="0.8" opacity="0.2"/>
+    <!-- Side seams -->
+    <path d="M-35,-108 L-65,125" stroke-width="0.8" opacity="0.2"/>
+    <path d="M35,-108 L65,125" stroke-width="0.8" opacity="0.2"/>
+    <!-- Darts -->
+    <line x1="-18" y1="-105" x2="-15" y2="-75" stroke-width="1" opacity="0.3"/>
+    <line x1="18" y1="-105" x2="15" y2="-75" stroke-width="1" opacity="0.3"/>
+    <!-- Subtle fold lines -->
+    <path d="M-15,-60 Q-20,20 -50,120" stroke-width="0.7" opacity="0.15"/>
+    <path d="M15,-60 Q20,20 50,120" stroke-width="0.7" opacity="0.15"/>
+    <path d="M-8,-50 Q-10,30 -30,125" stroke-width="0.7" opacity="0.15"/>
+    <path d="M8,-50 Q10,30 30,125" stroke-width="0.7" opacity="0.15"/>
+    <!-- Hem -->
+    <path d="M-60,125 L60,125" stroke-width="2.5"/>
+    <!-- Zipper indication at back (small line at waist) -->
+    <line x1="3" y1="-120" x2="3" y2="-108" stroke-width="1" opacity="0.3"/>
+  </g>
+</svg>

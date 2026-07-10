@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <!-- Background -->
+  <rect width="400" height="400" rx="16" fill="#EDE6DA"/>
+  <!-- Beige Sandals - side view -->
+  <g transform="translate(200,230)" fill="none" stroke="#8B7E74" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Sole -->
+    <path d="M-105,20 Q-108,10 -95,5 L108,5 Q120,10 118,20 L115,30 Q112,38 102,38 L-95,38 Q-105,38 -108,30 Z" stroke-width="2"/>
+    <!-- Midsole -->
+    <path d="M-100,5 Q-102,-2 -90,-5 L105,-5 Q115,-2 113,5 Z" stroke-width="1.5" opacity="0.5"/>
+    <!-- Footbed / insole line -->
+    <path d="M-90,-5 Q0,-8 105,-5" stroke-width="0.8" opacity="0.25"/>
+    <!-- Sole tread pattern -->
+    <line x1="-80" y1="34" x2="95" y2="34" stroke-width="0.7" opacity="0.2"/>
+    <!-- Heel area -->
+    <path d="M-95,5 L-95,-15 Q-95,-25 -85,-28 L-70,-30 Q-60,-30 -55,-25 L-55,5" stroke-width="2"/>
+    <!-- Heel strap top -->
+    <path d="M-95,-22 Q-80,-30 -60,-22" stroke-width="2" opacity="0.6"/>
+    <!-- Heel cushion -->
+    <path d="M-92,0 L-58,0" stroke-width="1" opacity="0.25"/>
+    <!-- Ankle strap -->
+    <path d="M-80,-25 L-75,-55 Q-72,-62 -65,-62 L-45,-62 Q-38,-62 -36,-55 L-32,-25" stroke-width="2"/>
+    <!-- Ankle strap buckle -->
+    <rect x="-48" y="-68" width="14" height="10" rx="2" stroke-width="1.8" opacity="0.6"/>
+    <!-- Buckle pin -->
+    <circle cx="-41" cy="-63" r="1.5" fill="#8B7E74" stroke="none" opacity="0.5"/>
+    <!-- Buckle prong -->
+    <line x1="-41" y1="-63" x2="-41" y2="-56" stroke-width="1" opacity="0.4"/>
+    <!-- Toe thong / strap -->
+    <path d="M-40,-5 L-30,-22 Q-25,-30 -15,-30 L5,-28 Q15,-25 20,-15 L25,-5" stroke-width="2.5" opacity="0.5"/>
+    <!-- Toe thong attachment -->
+    <path d="M-30,-22 L-25,-5" stroke-width="1.5" opacity="0.35"/>
+    <!-- Midfoot strap -->
+    <path d="M-55,-8 L-45,-18 Q-35,-22 -20,-18 L5,-10 L25,-5" stroke-width="2" opacity="0.45"/>
+    <!-- Strap edge detail -->
+    <path d="M-50,-14 Q-30,-18 -10,-14" stroke-width="0.8" opacity="0.25"/>
+    <!-- Sole side view detail -->
+    <path d="M-100,5 L-100,20" stroke-width="0.8" opacity="0.2"/>
+    <path d="M110,5 L110,20" stroke-width="0.8" opacity="0.2"/>
+  </g>
+</svg>

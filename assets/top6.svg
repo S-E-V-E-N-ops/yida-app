@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <!-- Background -->
+  <rect width="400" height="400" rx="16" fill="#E8E5E2"/>
+  <!-- Grey Cardigan - front view -->
+  <g transform="translate(200,195)" fill="none" stroke="#6B6B6B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Body - left side (open front) -->
+    <path d="M-55,-95 L-55,105 Q-55,115 -45,115 L-8,115 L-8,-95"/>
+    <!-- Body - right side (open front) -->
+    <path d="M55,-95 L55,105 Q55,115 45,115 L8,115 L8,-95"/>
+    <!-- Left sleeve -->
+    <path d="M-55,-95 L-95,-55 Q-102,-48 -96,-40 L-80,60 Q-78,70 -72,70 L-55,70"/>
+    <!-- Right sleeve -->
+    <path d="M55,-95 L95,-55 Q102,-48 96,-40 L80,60 Q78,70 72,70 L55,70"/>
+    <!-- V-neckline -->
+    <path d="M-22,-95 L-8,-40" stroke-width="2.5"/>
+    <path d="M22,-95 L8,-40" stroke-width="2.5"/>
+    <!-- V-neck bottom curve -->
+    <path d="M-8,-40 Q0,-35 8,-40" stroke-width="2"/>
+    <!-- Shoulder seams -->
+    <path d="M-22,-95 L-55,-95" opacity="0.4"/>
+    <path d="M22,-95 L55,-95" opacity="0.4"/>
+    <!-- Buttons on left side -->
+    <circle cx="-12" cy="-20" r="3" fill="#6B6B6B" stroke="none" opacity="0.6"/>
+    <circle cx="-12" cy="15" r="3" fill="#6B6B6B" stroke="none" opacity="0.6"/>
+    <circle cx="-12" cy="50" r="3" fill="#6B6B6B" stroke="none" opacity="0.6"/>
+    <circle cx="-12" cy="85" r="3" fill="#6B6B6B" stroke="none" opacity="0.6"/>
+    <!-- Buttonholes on right side -->
+    <line x1="12" y1="-22" x2="16" y2="-18" stroke-width="1.5" opacity="0.5"/>
+    <line x1="12" y1="13" x2="16" y2="17" stroke-width="1.5" opacity="0.5"/>
+    <line x1="12" y1="48" x2="16" y2="52" stroke-width="1.5" opacity="0.5"/>
+    <line x1="12" y1="83" x2="16" y2="87" stroke-width="1.5" opacity="0.5"/>
+    <!-- Left pocket -->
+    <path d="M-50,30 L-15,30 L-15,65 L-50,65" stroke-width="1.2" opacity="0.4"/>
+    <!-- Right pocket -->
+    <path d="M50,30 L15,30 L15,65 L50,65" stroke-width="1.2" opacity="0.4"/>
+    <!-- Cuffs -->
+    <path d="M-77,65 L-55,65" stroke-width="1.5" opacity="0.5"/>
+    <path d="M77,65 L55,65" stroke-width="1.5" opacity="0.5"/>
+    <!-- Hem -->
+    <path d="M-50,115 L50,115" stroke-width="2.5"/>
+    <!-- Subtle ribbing lines -->
+    <line x1="-53" y1="-60" x2="-10" y2="-60" stroke-width="0.7" opacity="0.2"/>
+    <line x1="-54" y1="-40" x2="-10" y2="-40" stroke-width="0.7" opacity="0.2"/>
+    <line x1="53" y1="-60" x2="10" y2="-60" stroke-width="0.7" opacity="0.2"/>
+    <line x1="54" y1="-40" x2="10" y2="-40" stroke-width="0.7" opacity="0.2"/>
+  </g>
+</svg>

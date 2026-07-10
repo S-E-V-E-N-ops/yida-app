@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <!-- Background -->
+  <rect width="400" height="400" rx="16" fill="#E6DFD3"/>
+  <!-- Brown Boots - side view -->
+  <g transform="translate(200,200)" fill="none" stroke="#6B5E52" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Sole -->
+    <path d="M-115,115 Q-118,105 -105,100 L110,100 Q125,105 122,115 L118,125 Q115,132 105,132 L-100,132 Q-112,132 -115,125 Z" stroke-width="2"/>
+    <!-- Heel - raised -->
+    <path d="M-115,115 L-115,100 L-105,100 L-105,90 L-95,90 L-95,115 Z" stroke-width="1.5" opacity="0.5"/>
+    <!-- Midsole -->
+    <path d="M-105,100 Q-107,92 -95,88 L110,88 Q122,92 120,100 Z" stroke-width="1.5" opacity="0.5"/>
+    <!-- Shaft -->
+    <path d="M-95,88 L-95,-80 Q-95,-90 -85,-90 L75,-90 Q85,-90 85,-80 L85,88" stroke-width="2"/>
+    <!-- Shaft top opening -->
+    <path d="M-95,-88 Q0,-82 85,-88" stroke-width="2.5" opacity="0.6"/>
+    <!-- Shaft pull tab -->
+    <path d="M-80,-85 L-80,-95 Q-80,-100 -75,-100 L-65,-100 Q-60,-100 -60,-95 L-60,-85" stroke-width="1.5" opacity="0.4"/>
+    <!-- Shaft pull tab hole -->
+    <path d="M-75,-95 L-65,-95" stroke-width="1" opacity="0.4"/>
+    <!-- Collar padding -->
+    <path d="M-90,-85 Q0,-78 80,-85" stroke-width="1" opacity="0.25"/>
+    <!-- Tongue -->
+    <path d="M-40,-88 L-35,-105 Q-30,-112 -20,-110 L5,-100 L5,-88" stroke-width="1.5" opacity="0.4"/>
+    <!-- Lace eyelets -->
+    <circle cx="-30" cy="-95" r="2.5" stroke-width="1.2" opacity="0.5"/>
+    <circle cx="-18" cy="-98" r="2.5" stroke-width="1.2" opacity="0.5"/>
+    <circle cx="-5" cy="-96" r="2.5" stroke-width="1.2" opacity="0.5"/>
+    <circle cx="5" cy="-90" r="2.5" stroke-width="1.2" opacity="0.5"/>
+    <!-- Laces -->
+    <path d="M-30,-95 L-12,-96" stroke-width="1.5" opacity="0.4"/>
+    <path d="M-18,-98 L2,-94" stroke-width="1.5" opacity="0.4"/>
+    <path d="M-5,-96 L10,-90" stroke-width="1.5" opacity="0.4"/>
+    <!-- Toe cap -->
+    <path d="M-95,60 Q-90,45 -80,42 L-30,35 Q-10,32 10,35 L-95,60 Z" stroke-width="1.5" opacity="0.35"/>
+    <!-- Vamp -->
+    <path d="M-95,88 L-95,60" stroke-width="1.5" opacity="0.4"/>
+    <!-- Side seam -->
+    <line x1="85" y1="-80" x2="85" y2="88" stroke-width="0.8" opacity="0.2"/>
+    <!-- Heel counter line -->
+    <path d="M85,60 L85,88" stroke-width="1.2" opacity="0.3"/>
+    <!-- Shaft stitch detail -->
+    <line x1="-88" y1="-30" x2="80" y2="-30" stroke-width="0.7" opacity="0.2"/>
+    <line x1="-90" y1="20" x2="82" y2="20" stroke-width="0.7" opacity="0.2"/>
+    <line x1="-92" y1="60" x2="85" y2="60" stroke-width="0.7" opacity="0.2"/>
+  </g>
+</svg>

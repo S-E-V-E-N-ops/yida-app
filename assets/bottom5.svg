@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <!-- Background -->
+  <rect width="400" height="400" rx="16" fill="#F0EDEA"/>
+  <!-- White Wide Leg Pants - front view -->
+  <g transform="translate(200,205)" fill="none" stroke="#8B7E74" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Left leg - wide -->
+    <path d="M-48,-120 L-55,120 Q-55,130 -45,130 L-5,130 Q0,130 0,120 L0,25"/>
+    <!-- Right leg - wide -->
+    <path d="M48,-120 L55,120 Q55,130 45,130 L5,130 Q0,130 0,120 L0,25"/>
+    <!-- High waistband - double -->
+    <path d="M-52,-120 L52,-120 L52,-100 L-52,-100 Z" stroke-width="2"/>
+    <!-- Waistband inner stitch -->
+    <line x1="-50" y1="-112" x2="50" y2="-112" stroke-width="0.8" opacity="0.3"/>
+    <line x1="-51" y1="-105" x2="51" y2="-105" stroke-width="0.8" opacity="0.3"/>
+    <!-- Belt loops -->
+    <line x1="-40" y1="-125" x2="-40" y2="-100" stroke-width="1.2" opacity="0.4"/>
+    <line x1="0" y1="-125" x2="0" y2="-100" stroke-width="1.2" opacity="0.4"/>
+    <line x1="40" y1="-125" x2="40" y2="-100" stroke-width="1.2" opacity="0.4"/>
+    <!-- Side pockets -->
+    <path d="M-48,-95 Q-35,-90 -10,-95" stroke-width="1.2" opacity="0.35"/>
+    <path d="M48,-95 Q35,-90 10,-95" stroke-width="1.2" opacity="0.35"/>
+    <!-- Pleats - wide leg -->
+    <line x1="-22" y1="-95" x2="-30" y2="10" stroke-width="1" opacity="0.2"/>
+    <line x1="-12" y1="-95" x2="-15" y2="10" stroke-width="1" opacity="0.2"/>
+    <line x1="22" y1="-95" x2="30" y2="10" stroke-width="1" opacity="0.2"/>
+    <line x1="12" y1="-95" x2="15" y2="10" stroke-width="1" opacity="0.2"/>
+    <!-- Center crease - left leg -->
+    <line x1="-28" y1="0" x2="-25" y2="125" stroke-width="0.8" opacity="0.18"/>
+    <!-- Center crease - right leg -->
+    <line x1="28" y1="0" x2="25" y2="125" stroke-width="0.8" opacity="0.18"/>
+    <!-- Inseam -->
+    <line x1="0" y1="25" x2="0" y2="125" stroke-width="0.8" opacity="0.2"/>
+    <!-- Hems -->
+    <path d="M-45,125 L-5,125" stroke-width="2" opacity="0.5"/>
+    <path d="M5,125 L45,125" stroke-width="2" opacity="0.5"/>
+  </g>
+</svg>

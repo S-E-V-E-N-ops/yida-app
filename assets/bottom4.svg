@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <!-- Background -->
+  <rect width="400" height="400" rx="16" fill="#E8E5E2"/>
+  <!-- Grey Sweatpants - front view -->
+  <g transform="translate(200,205)" fill="none" stroke="#6B6B6B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Left leg - slightly tapered -->
+    <path d="M-50,-120 L-50,110 Q-50,120 -42,120 L-42,130 Q-42,135 -8,135 L-8,25"/>
+    <!-- Right leg - slightly tapered -->
+    <path d="M50,-120 L50,110 Q50,120 42,120 L42,130 Q42,135 8,135 L8,25"/>
+    <!-- Elastic waistband -->
+    <path d="M-55,-120 L55,-120 L55,-105 L-55,-105 Z" stroke-width="2"/>
+    <!-- Waistband top elastic -->
+    <path d="M-52,-118 Q-30,-122 0,-118 Q30,-122 52,-118" stroke-width="1" opacity="0.3"/>
+    <!-- Drawstring -->
+    <line x1="-10,-112" x2="-15,-95" stroke-width="1.5" opacity="0.5"/>
+    <line x1="10,-112" x2="15,-95" stroke-width="1.5" opacity="0.5"/>
+    <!-- Drawstring tips -->
+    <circle cx="-15" cy="-95" r="2" fill="#6B6B6B" stroke="none" opacity="0.5"/>
+    <circle cx="15" cy="-95" r="2" fill="#6B6B6B" stroke="none" opacity="0.5"/>
+    <!-- Side stripes - left -->
+    <line x1="-50" y1="-50" x2="-44" y2="115" stroke-width="2.5" opacity="0.35"/>
+    <!-- Side stripes - right -->
+    <line x1="50" y1="-50" x2="44" y2="115" stroke-width="2.5" opacity="0.35"/>
+    <!-- Center seam -->
+    <line x1="0" y1="-50" x2="0" y2="125" stroke-width="0.8" opacity="0.2"/>
+    <!-- Side seams -->
+    <line x1="-50" y1="-105" x2="-50" y2="115" stroke-width="0.8" opacity="0.2"/>
+    <line x1="50" y1="-105" x2="50" y2="115" stroke-width="0.8" opacity="0.2"/>
+    <!-- Cuffed hem - left -->
+    <path d="M-42,120 L-8,120" stroke-width="1.5" opacity="0.4"/>
+    <path d="M-42,127 L-8,127" stroke-width="1.5" opacity="0.4"/>
+    <!-- Cuffed hem - right -->
+    <path d="M8,120 L42,120" stroke-width="1.5" opacity="0.4"/>
+    <path d="M8,127 L42,127" stroke-width="1.5" opacity="0.4"/>
+  </g>
+</svg>

@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <!-- Background -->
+  <rect width="400" height="400" rx="16" fill="#D6E4EF"/>
+  <!-- Blue Jeans - front view -->
+  <g transform="translate(200,205)" fill="none" stroke="#4A7296" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Left leg -->
+    <path d="M-50,-120 L-50,120 Q-50,130 -40,130 L-8,130 Q0,130 0,120 L0,30"/>
+    <!-- Right leg -->
+    <path d="M50,-120 L50,120 Q50,130 40,130 L8,130 Q0,130 0,120 L0,30"/>
+    <!-- Waistband -->
+    <path d="M-55,-120 L55,-120 L55,-108 L-55,-108 Z" stroke-width="2"/>
+    <!-- Belt loops -->
+    <line x1="-45" y1="-125" x2="-45" y2="-108" stroke-width="1.2" opacity="0.5"/>
+    <line x1="-25" y1="-125" x2="-25" y2="-108" stroke-width="1.2" opacity="0.5"/>
+    <line x1="25" y1="-125" x2="25" y2="-108" stroke-width="1.2" opacity="0.5"/>
+    <line x1="45" y1="-125" x2="45" y2="-108" stroke-width="1.2" opacity="0.5"/>
+    <!-- Fly zipper -->
+    <line x1="0" y1="-108" x2="0" y2="-30" stroke-width="1.5" opacity="0.5"/>
+    <!-- Zipper pull -->
+    <circle cx="0" cy="-30" r="2.5" fill="#4A7296" stroke="none" opacity="0.5"/>
+    <!-- Left front pocket -->
+    <path d="M-45,-100 L-10,-100 L-15,-65 L-45,-65 Z" stroke-width="1.5" opacity="0.5"/>
+    <!-- Right front pocket -->
+    <path d="M45,-100 L10,-100 L15,-65 L45,-65 Z" stroke-width="1.5" opacity="0.5"/>
+    <!-- Pocket opening arcs -->
+    <path d="M-45,-100 Q-30,-105 -10,-100" stroke-width="1" opacity="0.4"/>
+    <path d="M45,-100 Q30,-105 10,-100" stroke-width="1" opacity="0.4"/>
+    <!-- Center seam (inseam) -->
+    <line x1="0" y1="-30" x2="0" y2="125" stroke-width="1" opacity="0.3"/>
+    <!-- Side seams -->
+    <line x1="-50" y1="-108" x2="-50" y2="125" stroke-width="0.8" opacity="0.25"/>
+    <line x1="50" y1="-108" x2="50" y2="125" stroke-width="0.8" opacity="0.25"/>
+    <!-- Decorative stitching on pockets -->
+    <path d="M-42,-97 L-13,-97" stroke-width="0.8" stroke-dasharray="2,2" opacity="0.3"/>
+    <path d="M42,-97 L13,-97" stroke-width="0.8" stroke-dasharray="2,2" opacity="0.3"/>
+    <!-- Hems -->
+    <path d="M-40,125 L-8,125" stroke-width="2" opacity="0.5"/>
+    <path d="M8,125 L40,125" stroke-width="2" opacity="0.5"/>
+    <!-- Small rivet details -->
+    <circle cx="-38" cy="-100" r="1.5" fill="#4A7296" stroke="none" opacity="0.4"/>
+    <circle cx="38" cy="-100" r="1.5" fill="#4A7296" stroke="none" opacity="0.4"/>
+  </g>
+</svg>

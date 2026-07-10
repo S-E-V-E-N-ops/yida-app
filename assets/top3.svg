@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <!-- Background -->
+  <rect width="400" height="400" rx="16" fill="#EDE6DA"/>
+  <!-- Beige Knit - front view -->
+  <g transform="translate(200,195)" fill="none" stroke="#8B7E74" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Body -->
+    <path d="M-55,-95 L-55,100 Q-55,110 -45,110 L45,110 Q55,110 55,100 L55,-95"/>
+    <!-- Left sleeve - long -->
+    <path d="M-55,-95 L-95,-60 Q-102,-54 -98,-45 L-85,60 Q-83,70 -78,70 L-55,70"/>
+    <!-- Right sleeve - long -->
+    <path d="M55,-95 L95,-60 Q102,-54 98,-45 L85,60 Q83,70 78,70 L55,70"/>
+    <!-- Crew neckline -->
+    <path d="M-22,-95 Q0,-78 22,-95" stroke-width="2.5"/>
+    <!-- Neckline ribbing -->
+    <path d="M-20,-92 Q0,-80 20,-92" stroke-width="1" opacity="0.4"/>
+    <!-- Ribbed texture - horizontal lines -->
+    <line x1="-50" y1="-70" x2="50" y2="-70" stroke-width="0.8" opacity="0.25"/>
+    <line x1="-52" y1="-50" x2="52" y2="-50" stroke-width="0.8" opacity="0.25"/>
+    <line x1="-53" y1="-30" x2="53" y2="-30" stroke-width="0.8" opacity="0.25"/>
+    <line x1="-54" y1="-10" x2="54" y2="-10" stroke-width="0.8" opacity="0.25"/>
+    <line x1="-55" y1="10" x2="55" y2="10" stroke-width="0.8" opacity="0.25"/>
+    <line x1="-55" y1="30" x2="55" y2="30" stroke-width="0.8" opacity="0.25"/>
+    <line x1="-55" y1="50" x2="55" y2="50" stroke-width="0.8" opacity="0.25"/>
+    <line x1="-55" y1="70" x2="55" y2="70" stroke-width="0.8" opacity="0.25"/>
+    <line x1="-55" y1="90" x2="55" y2="90" stroke-width="0.8" opacity="0.25"/>
+    <!-- Sleeve ribbing -->
+    <line x1="-88" y1="20" x2="-58" y2="20" stroke-width="0.8" opacity="0.25"/>
+    <line x1="-87" y1="40" x2="-57" y2="40" stroke-width="0.8" opacity="0.25"/>
+    <line x1="-86" y1="60" x2="-56" y2="60" stroke-width="0.8" opacity="0.25"/>
+    <line x1="88" y1="20" x2="58" y2="20" stroke-width="0.8" opacity="0.25"/>
+    <line x1="87" y1="40" x2="57" y2="40" stroke-width="0.8" opacity="0.25"/>
+    <line x1="86" y1="60" x2="56" y2="60" stroke-width="0.8" opacity="0.25"/>
+    <!-- Cuffs -->
+    <path d="M-85,65 L-55,65" stroke-width="1.5" opacity="0.5"/>
+    <path d="M85,65 L55,65" stroke-width="1.5" opacity="0.5"/>
+    <!-- Hem -->
+    <path d="M-50,110 L50,110" stroke-width="2.5"/>
+    <!-- Center fold -->
+    <line x1="0" y1="-75" x2="0" y2="105" stroke-width="1" opacity="0.15"/>
+  </g>
+</svg>
