@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>衣搭 - 我的收藏</title>
+<style>
+:root {
+  --bg: #F8F8F6; --card: #FFFFFF; --text-primary: #2D2D2D; --text-secondary: #8C8C8C;
+  --accent: #8B7E74; --accent-light: #F0EDEA; --border: #E8E8E5; --white: #FFFFFF;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06); --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+  --radius-sm: 8px; --radius-md: 12px; --radius-lg: 16px; --radius-xl: 24px;
+  --transition: all 0.3s ease;
+}
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  background: #E8E8E5; color: var(--text-primary);
+  min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 16px;
+}
+.phone-frame {
+  width: 390px; height: 844px; background: var(--bg); border-radius: 44px; overflow: hidden;
+  box-shadow: 0 0 0 8px #1a1a1e, 0 0 0 10px #333, 0 20px 60px rgba(0,0,0,0.3);
+  position: relative; display: flex; flex-direction: column;
+}
+.status-bar {
+  height: 50px; background: var(--bg);
+  display: flex; align-items: flex-end; justify-content: space-between;
+  padding: 0 28px 8px; flex-shrink: 0;
+}
+.status-bar .time { font-size:15px; font-weight:600; }
+.status-bar .icons { display:flex; gap:4px; }
+.page { width:100%; flex:1; overflow-y:auto; overflow-x:hidden; -webkit-overflow-scrolling: touch; background: var(--bg); }
+.page::-webkit-scrollbar { display:none; }
+
+.sub-header {
+  display:flex; align-items:center;
+  padding:16px 20px; gap:12px;
+  position:sticky; top:0; background:var(--bg); z-index:5;
+}
+.sub-header .back-btn {
+  width:36px; height:36px; border:none; background:none;
+  cursor:pointer; display:flex; align-items:center; justify-content:center;
+  color: var(--text-primary); border-radius:50%; transition:var(--transition);
+}
+.sub-header .back-btn:hover { background:var(--accent-light); }
+.sub-header .sub-title { font-size:17px; font-weight:600; }
+
+.fav-list { padding:0 16px; }
+.fav-card {
+  background:var(--card); border-radius:var(--radius-md);
+  overflow:hidden; margin-bottom:12px; box-shadow:var(--shadow-sm);
+}
+.fav-card .fav-outfit-row { display:flex; gap:4px; padding:12px; }
+.fav-card .fav-outfit-row img { flex:1; height:70px; object-fit:cover; border-radius:4px; }
+.fav-card .fav-detail { padding:0 12px 12px; }
+.fav-card .fav-detail .fav-text { font-size:13px; color:var(--text-secondary); margin-bottom:4px; }
+.fav-card .fav-detail .fav-date { font-size:11px; color:var(--text-secondary); opacity:0.6; }
+.fav-card .fav-actions { display:flex; gap:8px; padding:0 12px 12px; }
+.fav-card .fav-actions button {
+  flex:1; padding:10px; border-radius:var(--radius-sm);
+  font-size:13px; font-weight:500; cursor:pointer;
+  border:none; transition:var(--transition);
+}
+.fav-card .fav-actions .btn-unfav { background:var(--accent-light); color:var(--accent); }
+.fav-card .fav-actions .btn-rematch { background:var(--card); color:var(--text-primary); border:1px solid var(--border) !important; }
+
+.toast {
+  position:absolute; top:60px; left:50%;
+  transform:translateX(-50%) translateY(-16px);
+  background:var(--text-primary); color:var(--white);
+  padding:10px 20px; border-radius:20px;
+  font-size:13px; font-weight:500; z-index:300;
+  opacity:0; transition:all 0.3s ease;
+  pointer-events:none; white-space:nowrap;
+}
+.toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
+@media (max-width:440px) {
+  body { padding:0; }
+  .phone-frame { width:100%; height:100vh; height:100dvh; border-radius:0; box-shadow:none; }
+}
+</style>
+</head>
+<body>
+<div class="phone-frame">
+  <div class="status-bar">
+    <span class="time">9:41</span>
+    <div class="icons">
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><rect x="0" y="4" width="3" height="8" rx="1" fill="#2D2D2D"/><rect x="4.5" y="2.5" width="3" height="9.5" rx="1" fill="#2D2D2D"/><rect x="9" y="1" width="3" height="11" rx="1" fill="#2D2D2D"/><rect x="13.5" y="0" width="3" height="12" rx="1" fill="#2D2D2D" opacity="0.3"/></svg>
+      <svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="0" y="1" width="20" height="10" rx="2" stroke="#2D2D2D" stroke-width="1.5"/><rect x="21" y="4" width="2" height="4" rx="1" fill="#2D2D2D"/><rect x="2" y="3" width="14" height="6" rx="1" fill="#2D2D2D"/></svg>
+    </div>
+  </div>
+
+  <div class="page">
+    <div class="sub-header">
+      <button class="back-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <span class="sub-title">我的收藏</span>
+    </div>
+    <div id="favorites-content"></div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+</div>
+
+<script>
+const wardrobe = {
+  tops: [
+    { id:1,  name:'白色 T 恤',     color:'白色', category:'上衣', image:'../assets/gen_tshirt_white.jpg' },
+    { id:2,  name:'蓝色衬衫',     color:'蓝色', category:'上衣', image:'../assets/gen_shirt_blue.jpg' },
+    { id:3,  name:'米色针织衫',   color:'米色', category:'上衣', image:'../assets/gen_knit_beige.jpg' },
+    { id:4,  name:'黑色卫衣',     color:'黑色', category:'上衣', image:'../assets/gen_hoodie_black.jpg' },
+    { id:5,  name:'卡其风衣',     color:'卡其', category:'上衣', image:'../assets/gen_coat_khaki.jpg' },
+    { id:6,  name:'灰色开衫',     color:'灰色', category:'上衣', image:'../assets/gen_cardigan_grey.jpg' },
+  ],
+  bottoms: [
+    { id:7,  name:'蓝色牛仔裤',   color:'蓝色', category:'下装', image:'../assets/gen_jeans_blue.jpg' },
+    { id:8,  name:'黑色西裤',     color:'黑色', category:'下装', image:'../assets/gen_pants_black.jpg' },
+    { id:9,  name:'米色半身裙',   color:'米色', category:'下装', image:'../assets/gen_skirt_beige.jpg' },
+    { id:10, name:'灰色运动裤',   color:'灰色', category:'下装', image:'../assets/gen_jogger_grey.jpg' },
+    { id:11, name:'白色阔腿裤',   color:'白色', category:'下装', image:'../assets/gen_widepants_white.jpg' },
+    { id:12, name:'卡其短裤',     color:'卡其', category:'下装', image:'../assets/gen_shorts_khaki.jpg' },
+  ],
+  shoes: [
+    { id:13, name:'白色运动鞋',   color:'白色', category:'鞋子', image:'../assets/gen_sneakers_white.jpg' },
+    { id:14, name:'棕色短靴',     color:'棕色', category:'鞋子', image:'../assets/gen_boots_brown.jpg' },
+    { id:15, name:'黑色乐福鞋',   color:'黑色', category:'鞋子', image:'../assets/gen_loafers_black.jpg' },
+    { id:16, name:'米色凉鞋',     color:'米色', category:'鞋子', image:'../assets/gen_sandals_beige.jpg' },
+  ],
+};
+
+// Pre-populated favorites
+const state = {
+  favorites: [
+    { top: wardrobe.tops[1], bottom: wardrobe.bottoms[0], shoes: wardrobe.shoes[0], occasion:'上课', date:'2026/7/9' },
+    { top: wardrobe.tops[4], bottom: wardrobe.bottoms[2], shoes: wardrobe.shoes[1], occasion:'约会', date:'2026/7/8' },
+    { top: wardrobe.tops[2], bottom: wardrobe.bottoms[4], shoes: wardrobe.shoes[3], occasion:'通勤', date:'2026/7/7' },
+  ],
+};
+
+function renderFavorites() {
+  const c = document.getElementById('favorites-content');
+  if (state.favorites.length === 0) {
+    c.innerHTML = '<div style="text-align:center;padding:60px 40px;color:var(--text-secondary);font-size:14px;">还没有收藏搭配</div>';
+    return;
+  }
+  c.innerHTML = '<div class="fav-list">' + state.favorites.map((f, i) => {
+    const imgs = [f.top, f.bottom, f.shoes].filter(Boolean);
+    const names = imgs.map(x => x.name).join(' + ');
+    return '<div class="fav-card"><div class="fav-outfit-row">' + imgs.map(x => '<img src="'+x.image+'" alt="">').join('') + '</div><div class="fav-detail"><div class="fav-text">'+names+'</div><div class="fav-date">收藏于 '+f.date+'</div></div><div class="fav-actions"><button class="btn-unfav" onclick="removeFav('+i+')">取消收藏</button></div></div>';
+  }).join('') + '</div>';
+}
+
+function removeFav(i) {
+  state.favorites.splice(i, 1);
+  renderFavorites();
+  showToast('已取消收藏');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(t._t);
+  t._t = setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+// INIT
+renderFavorites();
+</script>
+</body>
+</html>

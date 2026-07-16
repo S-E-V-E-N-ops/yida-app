@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>衣搭 - AI 助手</title>
+<style>
+:root {
+  --bg: #F8F8F6; --card: #FFFFFF; --text-primary: #2D2D2D; --text-secondary: #8C8C8C;
+  --accent: #8B7E74; --accent-light: #F0EDEA; --border: #E8E8E5; --white: #FFFFFF;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06); --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+  --radius-sm: 8px; --radius-md: 12px; --radius-lg: 16px; --radius-xl: 24px;
+  --transition: all 0.3s ease;
+}
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  background: #E8E8E5; color: var(--text-primary);
+  min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 16px;
+}
+.phone-frame {
+  width: 390px; height: 844px; background: var(--bg); border-radius: 44px; overflow: hidden;
+  box-shadow: 0 0 0 8px #1a1a1e, 0 0 0 10px #333, 0 20px 60px rgba(0,0,0,0.3);
+  position: relative; display: flex; flex-direction: column;
+}
+.status-bar {
+  height: 50px; background: var(--bg);
+  display: flex; align-items: flex-end; justify-content: space-between;
+  padding: 0 28px 8px; flex-shrink: 0;
+}
+.status-bar .time { font-size:15px; font-weight:600; }
+.status-bar .icons { display:flex; gap:4px; }
+.page { width:100%; flex:1; overflow-y:auto; overflow-x:hidden; -webkit-overflow-scrolling: touch; background: var(--bg); }
+.page::-webkit-scrollbar { display:none; }
+
+.page-header { display:flex; align-items:center; justify-content:space-between; padding:16px 20px 12px; }
+.page-header h2 { font-size:22px; font-weight:700; }
+
+.ai-hero-cards { padding:0 16px; margin-bottom:24px; }
+.ai-card {
+  background:var(--card); border-radius:var(--radius-lg);
+  padding:20px; margin-bottom:12px;
+  box-shadow:var(--shadow-sm); cursor:pointer;
+  transition:var(--transition);
+  display:flex; align-items:flex-start; gap:16px;
+}
+.ai-card:hover { box-shadow:var(--shadow-md); transform:translateY(-1px); }
+.ai-card .card-icon-wrap {
+  width:44px; height:44px; border-radius:var(--radius-sm);
+  background:var(--accent-light);
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0; color:var(--accent);
+}
+.ai-card .card-text-wrap { flex:1; }
+.ai-card .card-title { font-size:15px; font-weight:600; margin-bottom:4px; }
+.ai-card .card-desc { font-size:13px; color:var(--text-secondary); }
+.ai-card .card-arrow { color:var(--text-secondary); align-self:center; flex-shrink:0; }
+
+.section-divider {
+  display:flex; align-items:center;
+  padding:0 16px; margin-bottom:16px; gap:12px;
+}
+.section-divider::before, .section-divider::after {
+  content:''; flex:1; height:1px; background:var(--border);
+}
+.section-divider span { font-size:12px; color:var(--text-secondary); white-space:nowrap; }
+
+.recent-outfits { padding:0 16px; display:flex; gap:10px; overflow-x:auto; padding-bottom:16px; }
+.recent-outfits::-webkit-scrollbar { display:none; }
+.recent-outfit-card {
+  min-width:120px; background:var(--card); border-radius:var(--radius-md);
+  padding:10px; box-shadow:var(--shadow-sm);
+}
+.recent-outfit-card .outfit-imgs {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:3px; margin-bottom:6px;
+}
+.recent-outfit-card .outfit-imgs img { width:100%; height:45px; object-fit:cover; border-radius:3px; }
+.recent-outfit-card .outfit-label { font-size:10px; color:var(--text-secondary); }
+
+@media (max-width:440px) {
+  body { padding:0; }
+  .phone-frame { width:100%; height:100vh; height:100dvh; border-radius:0; box-shadow:none; }
+}
+</style>
+</head>
+<body>
+<div class="phone-frame">
+  <div class="status-bar">
+    <span class="time">9:41</span>
+    <div class="icons">
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><rect x="0" y="4" width="3" height="8" rx="1" fill="#2D2D2D"/><rect x="4.5" y="2.5" width="3" height="9.5" rx="1" fill="#2D2D2D"/><rect x="9" y="1" width="3" height="11" rx="1" fill="#2D2D2D"/><rect x="13.5" y="0" width="3" height="12" rx="1" fill="#2D2D2D" opacity="0.3"/></svg>
+      <svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="0" y="1" width="20" height="10" rx="2" stroke="#2D2D2D" stroke-width="1.5"/><rect x="21" y="4" width="2" height="4" rx="1" fill="#2D2D2D"/><rect x="2" y="3" width="14" height="6" rx="1" fill="#2D2D2D"/></svg>
+    </div>
+  </div>
+
+  <div class="page">
+    <div class="page-header"><h2>AI 助手</h2><span></span></div>
+    <div class="ai-hero-cards">
+      <div class="ai-card">
+        <div class="card-icon-wrap"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>
+        <div class="card-text-wrap"><div class="card-title">买前 AI 咨询</div><div class="card-desc">买新衣服前先问问 AI</div></div>
+        <svg class="card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+      <div class="ai-card">
+        <div class="card-icon-wrap"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg></div>
+        <div class="card-text-wrap"><div class="card-title">AI 穿搭搭配</div><div class="card-desc">AI 推荐今日搭配</div></div>
+        <svg class="card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+    </div>
+    <div class="section-divider"><span>最近搭配推荐</span></div>
+    <div class="recent-outfits" id="recent-outfits"></div>
+  </div>
+</div>
+
+<script>
+const wardrobe = {
+  tops: [
+    { id:1,  name:'白色 T 恤',     color:'白色', category:'上衣', image:'../assets/gen_tshirt_white.jpg' },
+    { id:2,  name:'蓝色衬衫',     color:'蓝色', category:'上衣', image:'../assets/gen_shirt_blue.jpg' },
+    { id:3,  name:'米色针织衫',   color:'米色', category:'上衣', image:'../assets/gen_knit_beige.jpg' },
+    { id:4,  name:'黑色卫衣',     color:'黑色', category:'上衣', image:'../assets/gen_hoodie_black.jpg' },
+    { id:5,  name:'卡其风衣',     color:'卡其', category:'上衣', image:'../assets/gen_coat_khaki.jpg' },
+    { id:6,  name:'灰色开衫',     color:'灰色', category:'上衣', image:'../assets/gen_cardigan_grey.jpg' },
+  ],
+  bottoms: [
+    { id:7,  name:'蓝色牛仔裤',   color:'蓝色', category:'下装', image:'../assets/gen_jeans_blue.jpg' },
+    { id:8,  name:'黑色西裤',     color:'黑色', category:'下装', image:'../assets/gen_pants_black.jpg' },
+    { id:9,  name:'米色半身裙',   color:'米色', category:'下装', image:'../assets/gen_skirt_beige.jpg' },
+    { id:10, name:'灰色运动裤',   color:'灰色', category:'下装', image:'../assets/gen_jogger_grey.jpg' },
+    { id:11, name:'白色阔腿裤',   color:'白色', category:'下装', image:'../assets/gen_widepants_white.jpg' },
+    { id:12, name:'卡其短裤',     color:'卡其', category:'下装', image:'../assets/gen_shorts_khaki.jpg' },
+  ],
+  shoes: [
+    { id:13, name:'白色运动鞋',   color:'白色', category:'鞋子', image:'../assets/gen_sneakers_white.jpg' },
+    { id:14, name:'棕色短靴',     color:'棕色', category:'鞋子', image:'../assets/gen_boots_brown.jpg' },
+    { id:15, name:'黑色乐福鞋',   color:'黑色', category:'鞋子', image:'../assets/gen_loafers_black.jpg' },
+    { id:16, name:'米色凉鞋',     color:'米色', category:'鞋子', image:'../assets/gen_sandals_beige.jpg' },
+  ],
+};
+
+function renderRecent() {
+  const c = document.getElementById('recent-outfits');
+  const samples = [];
+  for(let i=0;i<6;i++){
+    samples.push({
+      top: wardrobe.tops[Math.floor(Math.random()*wardrobe.tops.length)],
+      bottom: wardrobe.bottoms[Math.floor(Math.random()*wardrobe.bottoms.length)],
+      shoes: wardrobe.shoes[Math.floor(Math.random()*wardrobe.shoes.length)],
+    });
+  }
+  c.innerHTML = samples.map(s => '<div class="recent-outfit-card"><div class="outfit-imgs"><img src="'+s.top.image+'" alt=""><img src="'+s.bottom.image+'" alt=""><img src="'+s.shoes.image+'" alt=""></div><div class="outfit-label">'+s.top.name+' + '+s.bottom.name+'</div></div>').join('');
+}
+
+renderRecent();
+</script>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>衣搭 - 衣柜统计</title>
+<style>
+:root {
+  --bg: #F8F8F6; --card: #FFFFFF; --text-primary: #2D2D2D; --text-secondary: #8C8C8C;
+  --accent: #8B7E74; --accent-light: #F0EDEA; --border: #E8E8E5; --white: #FFFFFF;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06); --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+  --radius-sm: 8px; --radius-md: 12px; --radius-lg: 16px; --radius-xl: 24px;
+  --transition: all 0.3s ease;
+}
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  background: #E8E8E5; color: var(--text-primary);
+  min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 16px;
+}
+.phone-frame {
+  width: 390px; height: 844px; background: var(--bg); border-radius: 44px; overflow: hidden;
+  box-shadow: 0 0 0 8px #1a1a1e, 0 0 0 10px #333, 0 20px 60px rgba(0,0,0,0.3);
+  position: relative; display: flex; flex-direction: column;
+}
+.status-bar {
+  height: 50px; background: var(--bg);
+  display: flex; align-items: flex-end; justify-content: space-between;
+  padding: 0 28px 8px; flex-shrink: 0;
+}
+.status-bar .time { font-size:15px; font-weight:600; }
+.status-bar .icons { display:flex; gap:4px; }
+.page { width:100%; flex:1; overflow-y:auto; overflow-x:hidden; -webkit-overflow-scrolling: touch; background: var(--bg); }
+.page::-webkit-scrollbar { display:none; }
+
+.sub-header {
+  display:flex; align-items:center;
+  padding:16px 20px; gap:12px;
+  position:sticky; top:0; background:var(--bg); z-index:5;
+}
+.sub-header .back-btn {
+  width:36px; height:36px; border:none; background:none;
+  cursor:pointer; display:flex; align-items:center; justify-content:center;
+  color: var(--text-primary); border-radius:50%; transition:var(--transition);
+}
+.sub-header .back-btn:hover { background:var(--accent-light); }
+.sub-header .sub-title { font-size:17px; font-weight:600; }
+
+@media (max-width:440px) {
+  body { padding:0; }
+  .phone-frame { width:100%; height:100vh; height:100dvh; border-radius:0; box-shadow:none; }
+}
+</style>
+</head>
+<body>
+<div class="phone-frame">
+  <div class="status-bar">
+    <span class="time">9:41</span>
+    <div class="icons">
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><rect x="0" y="4" width="3" height="8" rx="1" fill="#2D2D2D"/><rect x="4.5" y="2.5" width="3" height="9.5" rx="1" fill="#2D2D2D"/><rect x="9" y="1" width="3" height="11" rx="1" fill="#2D2D2D"/><rect x="13.5" y="0" width="3" height="12" rx="1" fill="#2D2D2D" opacity="0.3"/></svg>
+      <svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="0" y="1" width="20" height="10" rx="2" stroke="#2D2D2D" stroke-width="1.5"/><rect x="21" y="4" width="2" height="4" rx="1" fill="#2D2D2D"/><rect x="2" y="3" width="14" height="6" rx="1" fill="#2D2D2D"/></svg>
+    </div>
+  </div>
+
+  <div class="page">
+    <div class="sub-header">
+      <button class="back-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <span class="sub-title">衣柜统计</span>
+    </div>
+    <div id="stats-content" style="padding:0 16px;"></div>
+  </div>
+</div>
+
+<script>
+const wardrobe = {
+  tops: [
+    { id:1,  name:'白色 T 恤',   color:'白色', category:'上衣', image:'../assets/gen_tshirt_white.jpg' },
+    { id:2,  name:'蓝色衬衫',   color:'蓝色', category:'上衣', image:'../assets/gen_shirt_blue.jpg' },
+    { id:3,  name:'米色针织衫', color:'米色', category:'上衣', image:'../assets/gen_knit_beige.jpg' },
+    { id:4,  name:'黑色卫衣',   color:'黑色', category:'上衣', image:'../assets/gen_hoodie_black.jpg' },
+    { id:5,  name:'卡其风衣',   color:'卡其', category:'上衣', image:'../assets/gen_coat_khaki.jpg' },
+    { id:6,  name:'灰色开衫',   color:'灰色', category:'上衣', image:'../assets/gen_cardigan_grey.jpg' },
+  ],
+  bottoms: [
+    { id:7,  name:'蓝色牛仔裤', color:'蓝色', category:'下装', image:'../assets/gen_jeans_blue.jpg' },
+    { id:8,  name:'黑色西裤',   color:'黑色', category:'下装', image:'../assets/gen_pants_black.jpg' },
+    { id:9,  name:'米色半身裙', color:'米色', category:'下装', image:'../assets/gen_skirt_beige.jpg' },
+    { id:10, name:'灰色运动裤', color:'灰色', category:'下装', image:'../assets/gen_jogger_grey.jpg' },
+    { id:11, name:'白色阔腿裤', color:'白色', category:'下装', image:'../assets/gen_widepants_white.jpg' },
+    { id:12, name:'卡其短裤',   color:'卡其', category:'下装', image:'../assets/gen_shorts_khaki.jpg' },
+  ],
+  shoes: [
+    { id:13, name:'白色运动鞋', color:'白色', category:'鞋子', image:'../assets/gen_sneakers_white.jpg' },
+    { id:14, name:'棕色短靴',   color:'棕色', category:'鞋子', image:'../assets/gen_boots_brown.jpg' },
+    { id:15, name:'黑色乐福鞋', color:'黑色', category:'鞋子', image:'../assets/gen_loafers_black.jpg' },
+    { id:16, name:'米色凉鞋',   color:'米色', category:'鞋子', image:'../assets/gen_sandals_beige.jpg' },
+  ],
+  bags: [
+    { id:17, name:'黑色链条包', color:'黑色', category:'包包', image:'../assets/gen_bag_black.jpg' },
+    { id:18, name:'米色托特包', color:'米色', category:'包包', image:'../assets/gen_bag_beige.jpg' },
+    { id:19, name:'棕色肩背包', color:'棕色', category:'包包', image:'../assets/gen_bag_brown.jpg' },
+  ],
+  hats: [
+    { id:20, name:'黑色棒球帽', color:'黑色', category:'帽子', image:'../assets/gen_hat_black.jpg' },
+    { id:21, name:'米色草帽',   color:'米色', category:'帽子', image:'../assets/gen_hat_beige.jpg' },
+    { id:22, name:'灰色毛线帽', color:'灰色', category:'帽子', image:'../assets/gen_hat_grey.jpg' },
+  ],
+  accessories: [
+    { id:23, name:'金色项链',   color:'金色', category:'配饰', image:'../assets/gen_acc_gold.jpg' },
+    { id:24, name:'银色耳环',   color:'银色', category:'配饰', image:'../assets/gen_acc_silver.jpg' },
+    { id:25, name:'酒红色丝巾', color:'酒红', category:'配饰', image:'../assets/gen_acc_scarf.jpg' },
+  ],
+};
+
+const allItems = [
+  ...wardrobe.tops, ...wardrobe.bottoms, ...wardrobe.shoes,
+  ...wardrobe.bags, ...wardrobe.hats, ...wardrobe.accessories
+];
+
+const favCount = 3;
+
+function renderStats() {
+  const c = document.getElementById('stats-content');
+  const cats = [
+    { key:'tops', label:'上衣', icon:'👚' },
+    { key:'bottoms', label:'下装', icon:'👖' },
+    { key:'shoes', label:'鞋子', icon:'👟' },
+    { key:'bags', label:'包包', icon:'👜' },
+    { key:'hats', label:'帽子', icon:'🎩' },
+    { key:'accessories', label:'配饰', icon:'📿' },
+  ];
+  const total = allItems.length;
+
+  c.innerHTML = '<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:20px;"><div style="background:var(--card);border-radius:var(--radius-md);padding:20px;text-align:center;box-shadow:var(--shadow-sm);"><div style="font-size:28px;font-weight:700;color:var(--accent);margin-bottom:4px;">'+total+'</div><div style="font-size:12px;color:var(--text-secondary);">总单品数</div></div><div style="background:var(--card);border-radius:var(--radius-md);padding:20px;text-align:center;box-shadow:var(--shadow-sm);"><div style="font-size:28px;font-weight:700;color:var(--accent);margin-bottom:4px;">'+favCount+'</div><div style="font-size:12px;color:var(--text-secondary);">收藏搭配</div></div></div><div style="font-size:13px;color:var(--text-secondary);margin-bottom:10px;font-weight:500;">分类明细</div>'+cats.map(cat => {
+    const count = wardrobe[cat.key].length;
+    const pct = Math.round(count / total * 100);
+    return '<div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);"><span style="font-size:20px;width:28px;text-align:center;">'+cat.icon+'</span><span style="flex:1;font-size:14px;font-weight:500;">'+cat.label+'</span><div style="width:120px;height:6px;background:var(--accent-light);border-radius:3px;overflow:hidden;"><div style="width:'+pct+'%;height:100%;background:var(--accent);border-radius:3px;transition:width 0.5s ease;"></div></div><span style="font-size:13px;color:var(--text-secondary);width:32px;text-align:right;">'+count+'</span></div>';
+  }).join('')+'<div style="margin-top:20px;padding:14px 16px;background:var(--accent-light);border-radius:var(--radius-md);font-size:13px;color:var(--accent);text-align:center;">穿搭潜力指数：还有 '+Math.max(0, 48 - total)+' 件单品空间可扩展</div>';
+}
+
+renderStats();
+</script>
+</body>
+</html>

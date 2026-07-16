@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>衣搭 - 穿搭风格偏好</title>
+<style>
+:root {
+  --bg: #F8F8F6; --card: #FFFFFF; --text-primary: #2D2D2D; --text-secondary: #8C8C8C;
+  --accent: #8B7E74; --accent-light: #F0EDEA; --border: #E8E8E5; --white: #FFFFFF;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06); --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+  --radius-sm: 8px; --radius-md: 12px; --radius-lg: 16px; --radius-xl: 24px;
+  --transition: all 0.3s ease;
+}
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  background: #E8E8E5; color: var(--text-primary);
+  min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 16px;
+}
+.phone-frame {
+  width: 390px; height: 844px; background: var(--bg); border-radius: 44px; overflow: hidden;
+  box-shadow: 0 0 0 8px #1a1a1e, 0 0 0 10px #333, 0 20px 60px rgba(0,0,0,0.3);
+  position: relative; display: flex; flex-direction: column;
+}
+.status-bar {
+  height: 50px; background: var(--bg);
+  display: flex; align-items: flex-end; justify-content: space-between;
+  padding: 0 28px 8px; flex-shrink: 0;
+}
+.status-bar .time { font-size:15px; font-weight:600; }
+.status-bar .icons { display:flex; gap:4px; }
+.page { width:100%; flex:1; overflow-y:auto; overflow-x:hidden; -webkit-overflow-scrolling: touch; background: var(--bg); }
+.page::-webkit-scrollbar { display:none; }
+
+.sub-header {
+  display:flex; align-items:center;
+  padding:16px 20px; gap:12px;
+  position:sticky; top:0; background:var(--bg); z-index:5;
+}
+.sub-header .back-btn {
+  width:36px; height:36px; border:none; background:none;
+  cursor:pointer; display:flex; align-items:center; justify-content:center;
+  color: var(--text-primary); border-radius:50%; transition:var(--transition);
+}
+.sub-header .back-btn:hover { background:var(--accent-light); }
+.sub-header .sub-title { font-size:17px; font-weight:600; }
+
+.style-card {
+  padding:14px; background:var(--card); border-radius:var(--radius-md);
+  box-shadow:var(--shadow-sm); cursor:pointer; transition:var(--transition);
+  text-align:center; border:2px solid transparent;
+}
+.style-card:hover { box-shadow:var(--shadow-md); }
+.style-card.selected { border-color:var(--accent); background:var(--accent-light); }
+
+.color-chip.selected { background:var(--accent); color:var(--white); border-color:var(--accent); }
+
+.toast {
+  position:absolute; top:60px; left:50%;
+  transform:translateX(-50%) translateY(-16px);
+  background:var(--text-primary); color:var(--white);
+  padding:10px 20px; border-radius:20px;
+  font-size:13px; font-weight:500; z-index:300;
+  opacity:0; transition:all 0.3s ease;
+  pointer-events:none; white-space:nowrap;
+}
+.toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
+@media (max-width:440px) {
+  body { padding:0; }
+  .phone-frame { width:100%; height:100vh; height:100dvh; border-radius:0; box-shadow:none; }
+}
+</style>
+</head>
+<body>
+<div class="phone-frame">
+  <div class="status-bar">
+    <span class="time">9:41</span>
+    <div class="icons">
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><rect x="0" y="4" width="3" height="8" rx="1" fill="#2D2D2D"/><rect x="4.5" y="2.5" width="3" height="9.5" rx="1" fill="#2D2D2D"/><rect x="9" y="1" width="3" height="11" rx="1" fill="#2D2D2D"/><rect x="13.5" y="0" width="3" height="12" rx="1" fill="#2D2D2D" opacity="0.3"/></svg>
+      <svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="0" y="1" width="20" height="10" rx="2" stroke="#2D2D2D" stroke-width="1.5"/><rect x="21" y="4" width="2" height="4" rx="1" fill="#2D2D2D"/><rect x="2" y="3" width="14" height="6" rx="1" fill="#2D2D2D"/></svg>
+    </div>
+  </div>
+
+  <div class="page">
+    <div class="sub-header">
+      <button class="back-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <span class="sub-title">穿搭风格偏好</span>
+    </div>
+    <div id="style-content" style="padding:0 16px;"></div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+</div>
+
+<script>
+const styles = [
+  { id:'minimalist', name:'简约', desc:'干净利落，less is more' },
+  { id:'casual', name:'休闲', desc:'舒适随性，日常穿搭' },
+  { id:'elegant', name:'气质', desc:'优雅得体，温柔知性' },
+  { id:'street', name:'街头', desc:'个性潮酷，潮流前卫' },
+  { id:'retro', name:'复古', desc:'经典怀旧，文艺复古' },
+  { id:'sporty', name:'运动', desc:'活力运动，休闲运动风' },
+  { id:'sweet', name:'甜美', desc:'可爱温柔，少女感' },
+  { id:'cool', name:'酷飒', desc:'帅气干练，又飒又美' },
+  { id:'korean', name:'韩系', desc:'温柔韩风，气质穿搭' },
+  { id:'french', name:'法式', desc:'慵懒浪漫，法式优雅' },
+  { id:'business', name:'通勤', desc:'职场得体，干练通勤' },
+  { id:'campus', name:'学院', desc:'青春学院，减龄穿搭' },
+];
+let selectedStyles = ['minimalist'];
+let colorPrefs = ['黑','白','米'];
+
+function renderStylePref() {
+  const c = document.getElementById('style-content');
+  c.innerHTML = '<div style="font-size:13px;color:var(--text-secondary);margin-bottom:12px;font-weight:500;">选择你喜欢的风格（可多选）</div><div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:24px;">'+styles.map(s => '<div class="style-card'+(selectedStyles.includes(s.id)?' selected':'')+'" onclick="toggleStyle(\''+s.id+'\')"><div style="font-size:16px;font-weight:600;margin-bottom:6px;">'+s.name+'</div><div style="font-size:12px;color:var(--text-secondary);line-height:1.4;">'+s.desc+'</div></div>').join('')+'</div><div style="font-size:13px;color:var(--text-secondary);margin-bottom:12px;font-weight:500;">颜色偏好</div><div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;">'+['黑','白','灰','米','蓝','粉','棕','绿','红'].map(cl => '<span class="color-chip'+(colorPrefs.includes(cl)?' selected':'')+'" onclick="toggleColorPref(\''+cl+'\')" style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;cursor:pointer;transition:var(--transition);border:2px solid var(--border);background:var(--card);color:var(--text-secondary);">'+cl+'</span>').join('')+'</div><button onclick="saveStylePref()" style="width:100%;padding:14px;border:none;border-radius:var(--radius-xl);font-size:15px;font-weight:600;cursor:pointer;background:var(--accent);color:var(--white);transition:var(--transition);">保存偏好</button>';
+}
+
+function toggleStyle(id) {
+  const idx = selectedStyles.indexOf(id);
+  if (idx >= 0) selectedStyles.splice(idx, 1);
+  else selectedStyles.push(id);
+  renderStylePref();
+}
+
+function toggleColorPref(color) {
+  const idx = colorPrefs.indexOf(color);
+  if (idx >= 0) colorPrefs.splice(idx, 1);
+  else colorPrefs.push(color);
+  renderStylePref();
+}
+
+function saveStylePref() {
+  const labels = selectedStyles.map(id => styles.find(s=>s.id===id)?.name).filter(Boolean);
+  showToast('风格偏好已保存：' + labels.join('、'));
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(t._t);
+  t._t = setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+renderStylePref();
+</script>
+</body>
+</html>

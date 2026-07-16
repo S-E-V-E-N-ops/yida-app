@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>衣搭 - 买前 AI 咨询</title>
+<style>
+:root {
+  --bg: #F8F8F6; --card: #FFFFFF; --text-primary: #2D2D2D; --text-secondary: #8C8C8C;
+  --accent: #8B7E74; --accent-light: #F0EDEA; --border: #E8E8E5; --white: #FFFFFF;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06); --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+  --radius-sm: 8px; --radius-md: 12px; --radius-lg: 16px; --radius-xl: 24px;
+  --transition: all 0.3s ease;
+}
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  background: #E8E8E5; color: var(--text-primary);
+  min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 16px;
+}
+.phone-frame {
+  width: 390px; height: 844px; background: var(--bg); border-radius: 44px; overflow: hidden;
+  box-shadow: 0 0 0 8px #1a1a1e, 0 0 0 10px #333, 0 20px 60px rgba(0,0,0,0.3);
+  position: relative; display: flex; flex-direction: column;
+}
+.status-bar {
+  height: 50px; background: var(--bg);
+  display: flex; align-items: flex-end; justify-content: space-between;
+  padding: 0 28px 8px; flex-shrink: 0;
+}
+.status-bar .time { font-size:15px; font-weight:600; }
+.status-bar .icons { display:flex; gap:4px; }
+.page { width:100%; flex:1; overflow-y:auto; overflow-x:hidden; -webkit-overflow-scrolling: touch; background: var(--bg); }
+.page::-webkit-scrollbar { display:none; }
+
+.sub-header {
+  display:flex; align-items:center;
+  padding:16px 20px; gap:12px;
+  position:sticky; top:0; background:var(--bg); z-index:5;
+}
+.sub-header .back-btn {
+  width:36px; height:36px; border:none; background:none;
+  cursor:pointer; display:flex; align-items:center; justify-content:center;
+  color: var(--text-primary); border-radius:50%; transition:var(--transition);
+}
+.sub-header .back-btn:hover { background:var(--accent-light); }
+.sub-header .sub-title { font-size:17px; font-weight:600; }
+
+.consult-form { padding:0 16px; }
+.upload-area {
+  background:var(--card); border:2px dashed var(--border);
+  border-radius:var(--radius-md); padding:36px 20px;
+  text-align:center; cursor:pointer; transition:var(--transition); margin-bottom:20px;
+}
+.upload-area:hover { border-color:var(--accent); background:var(--accent-light); }
+.upload-area svg { margin-bottom:8px; color:var(--text-secondary); }
+.upload-area p { font-size:14px; color:var(--text-secondary); }
+
+.form-group { margin-bottom:14px; }
+.form-group label { display:block; font-size:13px; font-weight:500; margin-bottom:6px; color:var(--text-secondary); }
+.form-group input, .form-group select {
+  width:100%; padding:10px 14px; border:1px solid var(--border);
+  border-radius:var(--radius-sm); font-size:14px;
+  background:var(--card); color:var(--text-primary); outline:none;
+  transition:var(--transition); font-family:inherit;
+}
+.form-group input:focus, .form-group select:focus { border-color:var(--accent); }
+
+.btn-analyze {
+  width:100%; padding:14px; border:none; border-radius:var(--radius-xl);
+  font-size:15px; font-weight:600; cursor:pointer;
+  background:var(--accent); color:var(--white); transition:var(--transition); margin-top:8px;
+}
+.btn-analyze:hover { opacity:0.9; }
+
+.report-card { margin:0 16px 14px; background:var(--card); border-radius:var(--radius-md); padding:16px; box-shadow:var(--shadow-sm); }
+.report-title { font-size:15px; font-weight:600; margin-bottom:8px; }
+.report-stars { color:var(--accent); font-size:16px; margin-bottom:4px; letter-spacing:2px; }
+.report-desc { font-size:13px; color:var(--text-secondary); line-height:1.6; }
+.report-tag { display:inline-block; padding:4px 10px; background:var(--accent-light); color:var(--accent); border-radius:4px; font-size:12px; font-weight:500; margin-top:8px; }
+.report-actions { display:flex; gap:10px; padding:0 16px; margin-bottom:24px; }
+.report-actions button { flex:1; padding:12px; border-radius:var(--radius-xl); font-size:14px; font-weight:500; cursor:pointer; border:none; transition:var(--transition); }
+.report-actions .btn-reanalyze { background:var(--accent-light); color:var(--accent); }
+.report-actions .btn-save-report { background:var(--accent); color:var(--white); }
+
+/* Loading */
+.loading-overlay {
+  position:absolute; top:0; left:0;
+  width:100%; height:100%;
+  background:rgba(248,248,246,0.95);
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  z-index:100; opacity:0; pointer-events:none;
+  transition:opacity 0.3s ease;
+}
+.loading-overlay.show { opacity:1; pointer-events:auto; }
+.spinner {
+  width:40px; height:40px;
+  border:2.5px solid var(--border);
+  border-top-color:var(--accent);
+  border-radius:50%;
+  animation:spin 0.7s linear infinite;
+  margin-bottom:14px;
+}
+@keyframes spin { to { transform:rotate(360deg); } }
+.loading-text { font-size:14px; color:var(--text-secondary); font-weight:500; }
+
+.toast {
+  position:absolute; top:60px; left:50%;
+  transform:translateX(-50%) translateY(-16px);
+  background:var(--text-primary); color:var(--white);
+  padding:10px 20px; border-radius:20px;
+  font-size:13px; font-weight:500; z-index:300;
+  opacity:0; transition:all 0.3s ease;
+  pointer-events:none; white-space:nowrap;
+}
+.toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
+@media (max-width:440px) {
+  body { padding:0; }
+  .phone-frame { width:100%; height:100vh; height:100dvh; border-radius:0; box-shadow:none; }
+}
+</style>
+</head>
+<body>
+<div class="phone-frame">
+  <div class="status-bar">
+    <span class="time">9:41</span>
+    <div class="icons">
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><rect x="0" y="4" width="3" height="8" rx="1" fill="#2D2D2D"/><rect x="4.5" y="2.5" width="3" height="9.5" rx="1" fill="#2D2D2D"/><rect x="9" y="1" width="3" height="11" rx="1" fill="#2D2D2D"/><rect x="13.5" y="0" width="3" height="12" rx="1" fill="#2D2D2D" opacity="0.3"/></svg>
+      <svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="0" y="1" width="20" height="10" rx="2" stroke="#2D2D2D" stroke-width="1.5"/><rect x="21" y="4" width="2" height="4" rx="1" fill="#2D2D2D"/><rect x="2" y="3" width="14" height="6" rx="1" fill="#2D2D2D"/></svg>
+    </div>
+  </div>
+
+  <div class="page">
+    <div class="sub-header">
+      <button class="back-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <span class="sub-title">买前 AI 咨询</span>
+    </div>
+
+    <div id="consult-form-view">
+      <div class="consult-form">
+        <div class="upload-area" id="upload-area" onclick="simulateUpload()">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+          <p>上传衣服图片</p>
+        </div>
+        <div class="form-group"><label>衣服名称</label><input type="text" placeholder="如：米色针织开衫"></div>
+        <div class="form-group"><label>价格</label><input type="text" placeholder="如：299"></div>
+        <div class="form-group"><label>材质</label><input type="text" placeholder="如：棉、羊毛"></div>
+        <div class="form-group"><label>颜色</label><input type="text" placeholder="如：米色"></div>
+        <div class="form-group"><label>穿着场合</label><select><option>上课</option><option>约会</option><option>面试</option><option>通勤</option><option>运动</option></select></div>
+        <button class="btn-analyze" onclick="runAnalysis()">AI 分析</button>
+      </div>
+    </div>
+
+    <div id="consult-report-view" style="display:none"></div>
+  </div>
+
+  <div class="loading-overlay" id="loading"><div class="spinner"></div><div class="loading-text">AI 正在分析...</div></div>
+  <div class="toast" id="toast"></div>
+</div>
+
+<script>
+function simulateUpload() {
+  document.getElementById('upload-area').innerHTML = '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#8B7E74" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg><p style="color:#8B7E74">上传成功</p>';
+  showToast('图片上传成功');
+}
+
+function runAnalysis() {
+  document.getElementById('loading').classList.add('show');
+  setTimeout(()=>{
+    document.getElementById('loading').classList.remove('show');
+    document.getElementById('consult-form-view').style.display='none';
+    document.getElementById('consult-report-view').style.display='block';
+    document.getElementById('consult-report-view').innerHTML = '<div style="padding-top:8px"><div class="report-card"><div class="report-title">搭配兼容性</div><div class="report-stars">★★★★☆</div><div class="report-desc">可以和你衣柜里 5 件单品搭配</div></div><div class="report-card"><div class="report-title">性价比评估</div><div class="report-desc">利用率预估：<strong>高</strong><br>推荐理由：基础款、百搭</div><div class="report-tag">推荐入手</div></div></div><div class="report-actions"><button class="btn-reanalyze" onclick="document.getElementById(\'consult-report-view\').style.display=\'none\';document.getElementById(\'consult-form-view\').style.display=\'block\';">重新分析</button><button class="btn-save-report" onclick="showToast(\'结果已保存\')">保存结果</button></div>';
+  },1500);
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(t._t);
+  t._t = setTimeout(() => t.classList.remove('show'), 2000);
+}
+</script>
+</body>
+</html>

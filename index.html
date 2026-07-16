@@ -1212,6 +1212,99 @@ function closeSubPage(id) {
   }
 }
 
+// ===== AI API 配置（直接调用 DeepSeek） =====
+const DEEPSEEK_KEY = 'your-api-key-here'; // 去 https://platform.deepseek.com 获取
+const DEEPSEEK_URL = 'https://api.deepseek.com/v1/chat/completions';
+
+async function callDeepSeek(systemPrompt, userPrompt) {
+  try {
+    const res = await fetch(DEEPSEEK_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${DEEPSEEK_KEY}`,
+      },
+      body: JSON.stringify({
+        model: 'deepseek-chat',
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: userPrompt }
+        ],
+        temperature: 0.7,
+        max_tokens: 800,
+      }),
+    });
+    const data = await res.json();
+    if (data.choices && data.choices[0]) {
+      const content = data.choices[0].message.content;
+      // 提取 JSON
+      const jsonMatch = content.match(/\{[\s\S]*\}/);
+      return jsonMatch ? JSON.parse(jsonMatch[0]) : { raw: content };
+    }
+    return null;
+  } catch (e) {
+    console.error('DeepSeek call failed:', e);
+    return null;
+  }
+}
+
+async function callAIMatch(lockedItem) {
+  document.getElementById('loading').classList.add('show');
+  document.getElementById('loading').querySelector('.loading-text').textContent = 'AI 正在搭配…';
+
+  const systemPrompt = `你是一个专业的女性穿搭顾问。根据用户衣柜推荐搭配。
+
+只返回JSON，不要其他文字：
+{
+  "top_id": 数字,
+  "bottom_id": 数字,
+  "shoes_id": 数字,
+  "explanation": "一句话搭配理由"
+}
+
+规则：全身不超过3个主色；基础色任意搭；亮色只配一件。
+场合：上课→休闲，约会→精致，面试→正式，通勤→简约，运动→运动休闲。`;
+
+  const lockedNote = lockedItem
+    ? `用户已选中：${lockedItem.name}（${lockedItem.category}），保留这件搭配其他。`
+    : '请从所有品类各选一件。';
+
+  const userPrompt = `天气25°C晴，场合"${state.occasion}"。${lockedNote}
+
+衣柜：
+上衣：${JSON.stringify(wardrobe.tops.map(i => ({ id: i.id, name: i.name, color: i.color })))}
+下装：${JSON.stringify(wardrobe.bottoms.map(i => ({ id: i.id, name: i.name, color: i.color })))}
+鞋子：${JSON.stringify(wardrobe.shoes.map(i => ({ id: i.id, name: i.name, color: i.color })))}
+
+返回JSON推荐一套搭配。`;
+
+  const result = await callDeepSeek(systemPrompt, userPrompt);
+  document.getElementById('loading').classList.remove('show');
+  return result;
+}
+
+async function callAIConsult(data) {
+  document.getElementById('loading').classList.add('show');
+  document.getElementById('loading').querySelector('.loading-text').textContent = 'AI 正在分析…';
+
+  const systemPrompt = `你是一个女性穿搭顾问。分析一件新衣服是否值得买。
+
+返回JSON：
+{
+  "compatibility": { "score": 数字1-5, "text": "兼容性说明" },
+  "styleMatch": { "score": 数字1-5, "text": "风格说明" },
+  "value": { "level": "高/中/低", "reason": "理由" },
+  "alternative": "衣柜里有啥替代品",
+  "verdict": "推荐入手/可以再想想/不推荐"
+}`;
+
+  const userPrompt = `用户想买：${data.name}，${data.price}元，${data.material}，${data.color}，${data.occasion}场合。用户风格偏好：${(data.userStyles || []).join('、')}。请分析。返回JSON。`;
+
+  const result = await callDeepSeek(systemPrompt, userPrompt);
+  document.getElementById('loading').classList.remove('show');
+  return result;
+}
+
 // ===== AI RESULT =====
 function goToAIResult(mode) {
   generateAIResults();
@@ -1220,15 +1313,39 @@ function goToAIResult(mode) {
   document.getElementById('result-weather').textContent = `25°C · ${state.occasion}`;
   openSubPage('sub-ai-result');
 }
-function generateAIResults() {
+async function generateAIResults() {
   state.aiResults = [];
-  for (let i=0; i<8; i++) {
-    state.aiResults.push({
-      top: wardrobe.tops[Math.floor(Math.random()*wardrobe.tops.length)],
-      bottom: wardrobe.bottoms[Math.floor(Math.random()*wardrobe.bottoms.length)],
-      shoes: wardrobe.shoes[Math.floor(Math.random()*wardrobe.shoes.length)],
-    });
+
+  // 尝试调用真实 API
+  const result = await callAIMatch(null);
+  if (result && result.top_id && result.bottom_id && result.shoes_id) {
+    // API 成功，用 AI 推荐的结果
+    const findItem = (id) => allItems.find(i => i.id === id);
+    const top = findItem(result.top_id);
+    const bottom = findItem(result.bottom_id);
+    const shoes = findItem(result.shoes_id);
+    if (top && bottom && shoes) {
+      state.aiResults.push({ top, bottom, shoes, aiReason: result.explanation || '' });
+    }
+    // 再生成 7 个随机搭配补全
+    for (let i=0; i<7; i++) {
+      state.aiResults.push({
+        top: wardrobe.tops[Math.floor(Math.random()*wardrobe.tops.length)],
+        bottom: wardrobe.bottoms[Math.floor(Math.random()*wardrobe.bottoms.length)],
+        shoes: wardrobe.shoes[Math.floor(Math.random()*wardrobe.shoes.length)],
+      });
+    }
+  } else {
+    // API 失败或未配置，回退到纯随机
+    for (let i=0; i<8; i++) {
+      state.aiResults.push({
+        top: wardrobe.tops[Math.floor(Math.random()*wardrobe.tops.length)],
+        bottom: wardrobe.bottoms[Math.floor(Math.random()*wardrobe.bottoms.length)],
+        shoes: wardrobe.shoes[Math.floor(Math.random()*wardrobe.shoes.length)],
+      });
+    }
   }
+  renderAIResult();
 }
 function renderAIResult() {
   const r = state.aiResults[state.aiResultIdx]; if (!r) return;
@@ -1265,22 +1382,54 @@ function simulateUpload() {
   document.getElementById('upload-area').innerHTML = `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#8B7E74" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg><p style="color:#8B7E74">上传成功</p>`;
   showToast('图片上传成功');
 }
-function runAnalysis() {
-  document.getElementById('loading').classList.add('show');
-  setTimeout(()=>{
-    document.getElementById('loading').classList.remove('show');
-    document.getElementById('consult-form-view').style.display='none';
-    document.getElementById('consult-report-view').style.display='block';
-    document.getElementById('consult-report-view').innerHTML=`
+async function runAnalysis() {
+  const form = document.getElementById('consult-form-view');
+  const report = document.getElementById('consult-report-view');
+  const name = document.querySelector('#consult-form-view input[placeholder="如：米色针织开衫"]')?.value || '未知';
+  const price = document.querySelectorAll('#consult-form-view input[type="text"]')[1]?.value || '未知';
+  const material = document.querySelectorAll('#consult-form-view input[type="text"]')[2]?.value || '未知';
+  const color = document.querySelectorAll('#consult-form-view input[type="text"]')[3]?.value || '未知';
+  const occasion = document.querySelector('#consult-form-view select')?.value || '上课';
+
+  // 调用 API
+  const result = await callAIConsult({
+    name, price, material, color, occasion,
+    userStyles: selectedStyles.map(id => styles.find(s=>s.id===id)?.name).filter(Boolean),
+  });
+
+  form.style.display = 'none';
+  report.style.display = 'block';
+
+  if (result && result.compatibility) {
+    // API 成功
+    const stars = (n) => '★'.repeat(n) + '☆'.repeat(5-n);
+    report.innerHTML = `
       <div style="padding-top:8px">
-        <div class="report-card"><div class="report-title">搭配兼容性</div><div class="report-stars">★★★★☆</div><div class="report-desc">可以和你衣柜里 5 件单品搭配</div></div>
-        <div class="report-card"><div class="report-title">性价比评估</div><div class="report-desc">利用率预估：<strong>高</strong><br>推荐理由：基础款、百搭</div><div class="report-tag">推荐入手</div></div>
+        <div class="report-card"><div class="report-title">搭配兼容性</div><div class="report-stars">${stars(result.compatibility.score || 4)}</div><div class="report-desc">${result.compatibility.text || ''}</div></div>
+        <div class="report-card"><div class="report-title">风格匹配度</div><div class="report-stars">${stars(result.styleMatch?.score || 4)}</div><div class="report-desc">${result.styleMatch?.text || ''}</div></div>
+        <div class="report-card"><div class="report-title">性价比评估</div><div class="report-desc">利用率预估：<strong>${result.value?.level || '中'}</strong><br>${result.value?.reason || ''}</div></div>
+        <div class="report-card"><div class="report-title">替代建议</div><div class="report-desc">${result.alternative || '暂无'}</div></div>
+      </div>
+      <div style="text-align:center;padding:0 16px 16px;">
+        <span class="report-tag" style="font-size:15px;padding:6px 20px;">${result.verdict || '可以再想想'}</span>
       </div>
       <div class="report-actions">
         <button class="btn-reanalyze" onclick="document.getElementById('consult-report-view').style.display='none';document.getElementById('consult-form-view').style.display='block';">重新分析</button>
         <button class="btn-save-report" onclick="showToast('结果已保存');closeSubPage('sub-consult');document.getElementById('consult-form-view').style.display='block';document.getElementById('consult-report-view').style.display='none';">保存结果</button>
       </div>`;
-  },1500);
+  } else {
+    // API 失败，显示兜底内容
+    report.innerHTML = `
+      <div style="padding-top:8px">
+        <div class="report-card"><div class="report-title">搭配兼容性</div><div class="report-stars">★★★★☆</div><div class="report-desc">可以和你衣柜里 5 件单品搭配</div></div>
+        <div class="report-card"><div class="report-title">性价比评估</div><div class="report-desc">利用率预估：<strong>高</strong><br>推荐理由：基础款、百搭</div><div class="report-tag">推荐入手</div></div>
+        <div style="padding:12px 16px;font-size:12px;color:var(--text-secondary);text-align:center;">（AI 暂未连接，显示模拟结果）</div>
+      </div>
+      <div class="report-actions">
+        <button class="btn-reanalyze" onclick="document.getElementById('consult-report-view').style.display='none';document.getElementById('consult-form-view').style.display='block';">重新分析</button>
+        <button class="btn-save-report" onclick="showToast('结果已保存');closeSubPage('sub-consult');document.getElementById('consult-form-view').style.display='block';document.getElementById('consult-report-view').style.display='none';">保存结果</button>
+      </div>`;
+  }
 }
 
 // ===== FAVORITES =====
