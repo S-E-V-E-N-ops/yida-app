@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -6,8 +6,8 @@
 <title>衣搭 - 我的衣柜</title>
 <style>
 :root {
-  --bg: #F8F8F6; --card: #FFFFFF; --text-primary: #2D2D2D; --text-secondary: #8C8C8C;
-  --accent: #8B7E74; --accent-light: #F0EDEA; --border: #E8E8E5; --white: #FFFFFF;
+  --bg: #FAFAFA; --card: #FFFFFF; --text-primary: #2D2D2D; --text-secondary: #8C8C8C;
+  --accent: #1A1A1A; --accent-light: #F2F2F2; --border: #E9E9E9; --white: #FFFFFF;
   --shadow-sm: 0 1px 3px rgba(0,0,0,0.06); --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
   --radius-sm: 8px; --radius-md: 12px; --radius-lg: 16px; --radius-xl: 24px;
   --transition: all 0.3s ease;
@@ -15,7 +15,7 @@
 * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
-  background: #E8E8E5; color: var(--text-primary);
+  background: #E9E9E9; color: var(--text-primary);
   min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 16px;
 }
 .phone-frame {
@@ -49,6 +49,7 @@ body {
   overflow-x:auto; border-bottom:1px solid var(--border);
 }
 .wardrobe-tabs::-webkit-scrollbar { display:none; }
+.wardrobe-tabs { scrollbar-width:none; -ms-overflow-style:none; }
 .wardrobe-tab {
   padding:8px 12px 12px; font-size:13px; font-weight:500;
   color:var(--text-secondary); cursor:pointer;
@@ -69,7 +70,7 @@ body {
   cursor:pointer; transition:var(--transition);
 }
 .wardrobe-card:hover { transform:translateY(-2px); box-shadow:var(--shadow-md); }
-.wardrobe-card .card-img { width:100%; height:120px; object-fit:cover; }
+.wardrobe-card .card-img { width:100%; height:120px; object-fit:contain; padding:8px; background:#fff; }
 .wardrobe-card .card-info { padding:8px; }
 .wardrobe-card .card-name { font-size:11px; font-weight:500; margin-bottom:2px; }
 .wardrobe-card .card-color {
@@ -83,17 +84,18 @@ body {
   position:absolute; top:0; left:0;
   width:100%; height:100%;
   background:rgba(0,0,0,0.4);
-  display:flex; align-items:center; justify-content:center;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
   z-index:150; opacity:0; pointer-events:none;
   transition:opacity 0.3s ease;
 }
 .item-modal.show { opacity:1; pointer-events:auto; }
 .item-modal .modal-content {
+  position:relative;
   background:var(--card); border-radius:var(--radius-lg);
   width:280px; overflow:hidden;
   box-shadow:0 20px 60px rgba(0,0,0,0.2);
 }
-.item-modal .modal-img { width:100%; height:240px; object-fit:cover; }
+.item-modal .modal-img { width:100%; height:260px; object-fit:contain; padding:16px 18px 8px; background:#fff; }
 .item-modal .modal-info { padding:16px 20px; }
 .item-modal .modal-name { font-size:16px; font-weight:600; margin-bottom:4px; }
 .item-modal .modal-color {
@@ -102,13 +104,22 @@ body {
   font-size:12px; color:var(--text-secondary); margin-bottom:12px;
 }
 .item-modal .modal-close {
-  width:100%; padding:12px; border:none;
-  background:var(--accent-light); color:var(--text-primary);
-  font-size:14px; font-weight:500; cursor:pointer;
-  border-radius:0 0 var(--radius-lg) var(--radius-lg);
-  transition:var(--transition);
+  position:static; z-index:3;
+  width:34px; height:34px; padding:0; margin-top:18px;
+  border:1px solid rgba(0,0,0,0.22); border-radius:50%;
+  background:rgba(255,255,255,0.88); color:#111;
+  cursor:pointer; font-size:0; line-height:0;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 8px 20px rgba(0,0,0,0.16);
+  backdrop-filter:blur(12px);
 }
-.item-modal .modal-close:hover { background:var(--accent); color:var(--white); }
+.item-modal .modal-close::before, .item-modal .modal-close::after {
+  content:""; position:absolute; width:13px; height:1.6px;
+  background:#111; border-radius:1px;
+}
+.item-modal .modal-close::before { transform:rotate(45deg); }
+.item-modal .modal-close::after { transform:rotate(-45deg); }
+.item-modal .modal-close:hover { background:rgba(255,255,255,0.95); border-color:rgba(0,0,0,0.34); }
 
 /* Toast */
 .toast {
@@ -153,8 +164,8 @@ body {
     <div class="modal-content" onclick="event.stopPropagation()">
       <img class="modal-img" id="modal-img" src="" alt="">
       <div class="modal-info"><div class="modal-name" id="modal-name"></div><span class="modal-color" id="modal-color"></span></div>
-      <button class="modal-close" onclick="closeItemModal()">关闭</button>
     </div>
+    <button class="modal-close" onclick="closeItemModal()" aria-label="关闭"></button>
   </div>
 
   <div class="toast" id="toast"></div>
@@ -259,3 +270,9 @@ renderWardrobe();
 </script>
 </body>
 </html>
+
+
+
+
+
+

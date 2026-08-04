@@ -1,50 +1,48 @@
-# 衣搭 — AI 穿搭助手
+# 衣搭 — AI 穿搭助手（高保真原型）
 
-## 怎么用 AI 功能？
+面向"出门前纠结穿什么"场景的 AI 穿搭助手：拍照上传衣物 → 三层滑动自由搭配，AI 根据天气、场合、风格推荐整套穿搭，并提供"买前 AI 咨询"辅助购买决策。
 
-**三步搞定，不需要部署，不需要服务器：**
+> 本仓库为**产品高保真原型**，用于展示产品设计、交互流程与 AI 方案。默认运行在 **Demo 模式**（无需任何 key 即可打开演示，AI 返回模拟结果）。
 
-### 第 1 步：确认 API Key 已配置
+## 快速打开
 
-代码里已经写好了 Key，不需要额外配置。
+**方式一：在线 Demo（推荐）**
+- GitHub Pages 链接：`https://<你的用户名>.github.io/yida-app/`
+- 打开后即可体验全部页面与交互，AI 功能显示模拟结果。
 
-> 如果以后 Key 失效了，去 [platform.deepseek.com](https://platform.deepseek.com) 重新创建，替换 `index.html` 里第 1219 行的 `DEEPSEEK_KEY` 值。
+**方式二：本地打开**
+- 直接双击 `index.html` 用浏览器打开；
+- 或用 VS Code Live Server 打开 `index.html`（`http://127.0.0.1:5500/index.html`），避免本地文件跨域问题。
 
-### 第 2 步：打开页面
+## AI 功能说明
 
-**方式一：直接双击打开（最简单）**
-- 找到 `index.html` → 双击 → 浏览器打开
-- ⚠️ 如果 API 调不通（CORS 跨域限制），用方式二
+- 默认 **Demo 模式**：未配置 API Key，AI 按钮返回模拟搭配结果，页面不白屏、不报错，方便随时演示。
+- **接入真实 AI（仅本地/内网体验）**：去 [platform.deepseek.com](https://platform.deepseek.com) 申请 API Key，填入 `index.html` 中的 `DEEPSEEK_KEY` 即可。
+- **线上部署接入真实 AI**：请使用 `api/chat.js`（Vercel 无服务器函数）做代理，key 配置在 Vercel 环境变量中，**不要**把 key 写进前端代码——静态网站的前端代码对访问者公开可见。
 
-**方式二：用 Live Server 打开（推荐，无跨域问题）**
-- VS Code 安装 Live Server 插件
-- 右键 `index.html` → Open with Live Server
-- 浏览器访问 `http://127.0.0.1:5500/index.html`
+## 产品设计
 
-**方式三：部署到国内可访问的静态托管**
-- **Zeabur**（最像 Vercel，国内友好）：zeabur.com
-- **Surge**：`npm install -g surge && surge .`
-- **GitHub Pages**：上传到 GitHub → Settings → Pages → 开启
-
-### 第 3 步：验证 AI 能用
-
-1. 搭配页 → 点「AI 搭配」按钮
-2. 看到「AI 正在搭配…」→ 等 2-5 秒
-3. 出现搭配结果 → ✅ AI 真的在工作了！
-
----
+| 模块 | 说明 |
+|:----|:-----|
+| 三层滑动搭配 | 上衣 / 下装 / 鞋子三行独立左右滑动切换，还原"试衣"直觉 |
+| 一键搭配 | 输入天气 + 场合 + 风格，AI 从衣柜推荐整套三件套 |
+| 补全搭配 | 锁定一件单品，AI 补全其余品类 |
+| 买前咨询 | 上传新品信息，AI 评估兼容性 / 风格匹配 / 性价比 / 替代品 |
+| 衣柜管理 | 30 件真实衣物透明图建立虚拟衣柜 |
+| 其他 | 5 种场合选择、收藏、统计、风格偏好、城市（12 页高保真原型） |
 
 ## 项目文件
 
 | 文件 | 说明 |
 |:----|:-----|
-| `index.html` | 前端页面（AI Key 在 1219 行） |
-| `assets/` | 衣物图片 |
-| `api/chat.js` | （可选）Vercel 代理，用 Vercel 时才需要 |
+| `index.html` | 主应用（含 AI 接入逻辑，Demo 模式无需 key） |
+| `pages/` | 12 个页面设计稿（静态高保真） |
+| `assets/outfit/` | 衣物图片素材 |
+| `api/chat.js` | （可选）Vercel 代理，用于线上安全接入真实 AI |
+| `docs/PRD-衣搭-AI穿搭助手.md` | 产品需求文档 |
 
----
+## 技术方案
 
-## 费用
-
-DeepSeek 价格 ¥0.5/百万 token，一次搭配 ≈ 1000 tokens。
-充 ¥5 够 Demo 用一两年。
+- **AI 模型**：DeepSeek（`deepseek-chat`），成本约 ¥0.5/百万 token，一次搭配 ≈ 1000 tokens。
+- **提示词方案**：结构化 JSON 输出 + 衣柜单品 ID 引用 + 配色 / 场合规则约束 + API 失败 mock 兜底，保证推荐可落地、不越界推荐衣柜外单品。
+- **数据存储**：浏览器 LocalStorage（MVP 不做账号体系）。

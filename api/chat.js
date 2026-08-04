@@ -72,11 +72,13 @@ ${JSON.stringify(wardrobeJson, null, 2)}
         'Authorization': `Bearer ${process.env.DEEPSEEK_API_KEY}`,
       },
       body: JSON.stringify({
-        model: 'deepseek-chat',
+        model: 'deepseek-v4-flash', // 2026-07 起 deepseek-chat 别名已弃用
         messages: [
           { role: 'system', content: systemPrompt },
           { role: 'user', content: userPrompt }
         ],
+        thinking: { type: 'disabled' }, // 关思考：搭配任务是规则跟随，不需推理链
+        response_format: { type: 'json_object' }, // 强制合法 JSON
         temperature: 0.7,
         max_tokens: 800,
       }),

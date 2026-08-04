@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -6,13 +6,13 @@
 <title>衣搭 - AI 穿搭助手</title>
 <style>
 :root {
-  --bg: #F8F8F6;
+  --bg: #FAFAFA;
   --card: #FFFFFF;
-  --text-primary: #2D2D2D;
-  --text-secondary: #8C8C8C;
-  --accent: #8B7E74;
-  --accent-light: #F0EDEA;
-  --border: #E8E8E5;
+  --text-primary: #171717;
+  --text-secondary: #9A9A9A;
+  --accent: #111111;
+  --accent-light: #F2F2F2;
+  --border: #E9E9E9;
   --white: #FFFFFF;
   --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
   --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
@@ -27,7 +27,7 @@
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
-  background: #E8E8E5;
+  background: #E9E9E9;
   color: var(--text-primary);
   min-height: 100vh;
   display: flex;
@@ -124,114 +124,85 @@ body {
 .sub-header .back-btn:hover { background:var(--accent-light); }
 .sub-header .sub-title { font-size:17px; font-weight:600; }
 
+
 /* ===== Match Page - Dressup Style ===== */
-.match-page { padding-bottom: 10px; }
+.match-page {
+  padding-bottom: 18px;
+  background:linear-gradient(180deg, rgba(255,255,255,0.96) 0%, rgba(250,250,250,0.72) 42%, #FAFAFA 100%);
+}
 
 .weather-bar {
   display:flex; align-items:center; gap:8px;
-  padding:10px 20px; margin:0 16px 12px;
-  background:var(--card); border-radius:var(--radius-md);
-  box-shadow:var(--shadow-sm); font-size:13px; color:var(--text-secondary);
+  width:calc(100% - 44px); min-height:42px;
+  padding:0 18px; margin:0 auto 12px;
+  font-size:12px; color:var(--text-secondary); letter-spacing:0.3px;
+  background:rgba(255,255,255,0.78);
+  border:1px solid rgba(17,17,17,0.06);
+  border-radius:14px;
+  box-shadow:0 10px 32px rgba(28,24,20,0.06);
+  backdrop-filter:blur(18px);
 }
 .weather-bar svg { flex-shrink:0; }
 .weather-bar .w-temp { font-weight:600; color:var(--text-primary); }
 
-.occasion-bar {
-  display:flex; gap:6px; padding:0 16px; margin-bottom:14px;
-  overflow-x:auto;
-}
+.occasion-bar { display:flex; gap:8px; padding:0 22px; margin-bottom:10px; overflow-x:auto; }
 .occasion-bar::-webkit-scrollbar { display:none; }
 .occasion-btn {
-  padding:6px 14px; border-radius:18px; font-size:12px; font-weight:500;
-  border:none; background:var(--accent-light); color:var(--text-primary);
+  padding:7px 16px; border-radius:999px; font-size:12px; font-weight:600;
+  border:0; background:rgba(244,245,247,0.82); color:#5F5F5F;
   white-space:nowrap; cursor:pointer; transition:var(--transition);
 }
-.occasion-btn.active { background:var(--accent); color:var(--white); }
+.occasion-btn.active { background:var(--accent); color:var(--white); box-shadow:0 8px 20px rgba(17,17,17,0.16); }
 
 /* ===== Picker-style rows (transform carousel, infinite loop) ===== */
-.picker-section { margin-bottom: 4px; }
+.picker-section { margin-bottom:4px; padding:14px 0 10px; }
+.picker-section-tops, .picker-section-shoes { background:rgba(244,245,247,0.88); }
+.picker-section-bottoms { background:rgba(255,255,255,0.88); }
 .picker-label {
-  font-size:11px; font-weight:500; color:var(--text-secondary);
-  padding:0 24px; margin-bottom:6px; letter-spacing:1px;
+  font-size:10px; font-weight:700; color:#A6A0A0;
+  padding:0 24px; margin-bottom:4px; letter-spacing:2.4px; text-transform:uppercase;
+  text-align:center;
 }
-.picker-viewport {
-  width:100%; overflow:hidden;
-  padding:4px 0 12px;
-  touch-action:pan-y;
+.picker-title {
+  font-size:19px; line-height:1; font-weight:700; color:var(--text-primary);
+  text-align:center; margin-bottom:4px; letter-spacing:0;
 }
-.picker-track {
-  display:flex;
-  will-change:transform;
-  transition:transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94);
-}
+.picker-viewport { width:100%; overflow:hidden; padding:4px 0 18px; touch-action:pan-y; }
+.picker-track { display:flex; will-change:transform; transition:transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94); }
 .picker-track.dragging { transition:none; }
-
 .picker-card {
-  flex:0 0 calc(100% / 3);
-  min-width:0; padding:0 6px;
-  cursor:pointer; user-select:none;
+  flex:0 0 calc(100% / 3); min-width:0; padding:0 5px;
+  cursor:pointer; user-select:none; display:flex; flex-direction:column; align-items:center;
 }
 .picker-card img {
-  width:100%; aspect-ratio:1;
-  object-fit:cover; border-radius:var(--radius-md);
-  transition:var(--transition);
-  background:var(--card);
-  display:block;
+  width:128px; height:128px; object-fit:contain; border-radius:0;
+  transition:var(--transition); background:transparent; display:block;
+  filter:drop-shadow(0 16px 18px rgba(38,32,28,0.12));
 }
 .picker-card .picker-name {
-  font-size:10px; color:var(--text-secondary);
-  text-align:center; margin-top:4px;
-  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
-  transition:var(--transition);
+  font-size:11px; color:rgba(17,17,17,0.42); text-align:center; margin-top:6px;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; transition:var(--transition);
+  opacity:0; max-width:120px;
 }
-.picker-card.selected img { outline: 2px solid var(--accent); outline-offset: 2px; }
-.picker-card.selected .picker-name { color:var(--text-primary); font-weight:500; }
-.picker-card.adjacent { opacity:0.45; }
-.picker-card.adjacent img { transform:scale(0.92); }
-
-/* ===== Preview strip ===== */
-.preview-strip {
-  margin:4px 20px 12px; padding:12px 16px;
-  background:var(--card); border-radius:var(--radius-md);
-  box-shadow:var(--shadow-sm);
-}
-.preview-strip-title { font-size:11px; color:var(--text-secondary); margin-bottom:8px; letter-spacing:0.5px; }
-.preview-items-row {
-  display:flex; gap:8px; align-items:center;
-  overflow-x:auto; padding-bottom:4px;
-}
-.preview-items-row::-webkit-scrollbar { display:none; }
-.preview-thumb {
-  width:48px; height:48px; border-radius:var(--radius-sm);
-  overflow:hidden; flex-shrink:0;
-  box-shadow:var(--shadow-sm);
-}
-.preview-thumb img { width:100%; height:100%; object-fit:cover; }
-.preview-score {
-  font-size:11px; color:var(--accent); font-weight:500;
-  margin-top:6px;
-}
+.picker-card.selected img { transform:scale(1.16); filter:drop-shadow(0 20px 22px rgba(38,32,28,0.18)); }
+.picker-card.selected .picker-name { opacity:0; }
+.picker-card.adjacent { opacity:0.46; }
+.picker-card.adjacent img { transform:scale(0.82); filter:drop-shadow(0 10px 12px rgba(38,32,28,0.08)); }
 
 /* Action bar */
-.action-bar {
-  padding:0 16px; display:flex; gap:10px; margin-bottom:16px;
-}
+.action-bar { padding:0 16px; display:flex; gap:10px; margin:0 0 16px; }
 .btn-ai-match {
-  flex:1; padding:13px 20px; border:none; border-radius:var(--radius-xl);
-  font-size:14px; font-weight:600; cursor:pointer;
-  display:flex; align-items:center; justify-content:center; gap:8px;
-  transition:var(--transition);
-  background:var(--accent); color:var(--white);
-  box-shadow:0 4px 16px rgba(139,126,116,0.3);
+  flex:1; height:48px; padding:0 20px; border:none; border-radius:24px;
+  font-size:14px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px;
+  transition:var(--transition); background:var(--accent); color:var(--white); box-shadow:0 12px 28px rgba(17,17,17,0.18);
 }
 .btn-ai-match:hover { transform:translateY(-1px); }
 .btn-ai-match svg { flex-shrink:0; }
 .btn-fav {
-  padding:13px 20px; border:1px solid var(--border); border-radius:var(--radius-xl);
-  font-size:14px; font-weight:500; cursor:pointer;
-  background:var(--card); color:var(--text-primary);
-  display:flex; align-items:center; justify-content:center; gap:6px;
-  transition:var(--transition);
+  width:96px; height:48px; padding:0 14px; border:1px solid rgba(17,17,17,0.08); border-radius:24px;
+  font-size:14px; font-weight:600; cursor:pointer; background:rgba(255,255,255,0.78); color:var(--text-primary);
+  display:flex; align-items:center; justify-content:center; gap:6px; transition:var(--transition);
+  box-shadow:0 12px 26px rgba(25,20,18,0.08); backdrop-filter:blur(18px);
 }
 .btn-fav:hover { border-color:var(--accent); }
 .btn-fav.saved { background:var(--accent); color:var(--white); border-color:var(--accent); }
@@ -256,6 +227,7 @@ body {
   overflow-x:auto; border-bottom:1px solid var(--border);
 }
 .wardrobe-tabs::-webkit-scrollbar { display:none; }
+.wardrobe-tabs { scrollbar-width:none; -ms-overflow-style:none; }
 .wardrobe-tab {
   padding:8px 12px 12px; font-size:13px; font-weight:500;
   color:var(--text-secondary); cursor:pointer;
@@ -280,7 +252,7 @@ body {
   cursor:pointer; transition:var(--transition);
 }
 .wardrobe-card:hover { transform:translateY(-2px); box-shadow:var(--shadow-md); }
-.wardrobe-card .card-img { width:100%; height:120px; object-fit:cover; }
+.wardrobe-card .card-img { width:100%; height:120px; object-fit:contain; padding:8px; background:#fff; }
 .wardrobe-card .card-info { padding:8px; }
 .wardrobe-card .card-name { font-size:11px; font-weight:500; margin-bottom:2px; }
 .wardrobe-card .card-color {
@@ -319,17 +291,22 @@ body {
 }
 .section-divider span { font-size:12px; color:var(--text-secondary); white-space:nowrap; }
 
-.recent-outfits { padding:0 16px; display:flex; gap:10px; overflow-x:auto; padding-bottom:16px; }
-.recent-outfits::-webkit-scrollbar { display:none; }
+.recent-outfits {
+  padding:0 16px 18px;
+  display:flex; flex-direction:column; gap:10px;
+}
 .recent-outfit-card {
-  min-width:120px; background:var(--card); border-radius:var(--radius-md);
-  padding:10px; box-shadow:var(--shadow-sm);
+  width:100%; background:var(--card); border-radius:var(--radius-md);
+  padding:10px 12px; box-shadow:var(--shadow-sm); cursor:pointer;
+  display:flex; align-items:center; gap:12px; transition:var(--transition);
 }
+.recent-outfit-card:hover { transform:translateY(-1px); box-shadow:var(--shadow-md); }
 .recent-outfit-card .outfit-imgs {
-  display:grid; grid-template-columns:repeat(3,1fr); gap:3px; margin-bottom:6px;
+  width:116px; flex-shrink:0;
+  display:grid; grid-template-columns:repeat(3,1fr); gap:4px;
 }
-.recent-outfit-card .outfit-imgs img { width:100%; height:45px; object-fit:cover; border-radius:3px; }
-.recent-outfit-card .outfit-label { font-size:10px; color:var(--text-secondary); }
+.recent-outfit-card .outfit-imgs img { width:100%; height:46px; object-fit:contain; border-radius:6px; background:#fff; }
+.recent-outfit-card .outfit-label { font-size:11px; line-height:1.35; color:var(--text-secondary); }
 
 /* ===== Profile ===== */
 .profile-header { text-align:center; padding:20px 20px 16px; }
@@ -337,7 +314,9 @@ body {
   width:64px; height:64px; border-radius:50%; background:var(--accent-light);
   margin:0 auto 12px;
   display:flex; align-items:center; justify-content:center; color:var(--accent);
+  overflow:hidden;
 }
+.profile-avatar img { width:100%; height:100%; object-fit:cover; display:block; }
 .profile-name { font-size:18px; font-weight:600; margin-bottom:4px; }
 .profile-stats { font-size:13px; color:var(--text-secondary); }
 
@@ -461,17 +440,25 @@ body {
   position:absolute; top:0; left:0;
   width:100%; height:100%;
   background:rgba(0,0,0,0.4);
-  display:flex; align-items:center; justify-content:center;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
   z-index:150; opacity:0; pointer-events:none;
   transition:opacity 0.3s ease;
 }
 .item-modal.show { opacity:1; pointer-events:auto; }
 .item-modal .modal-content {
+  position:relative;
   background:var(--card); border-radius:var(--radius-lg);
   width:280px; overflow:hidden;
   box-shadow:0 20px 60px rgba(0,0,0,0.2);
 }
-.item-modal .modal-img { width:100%; height:240px; object-fit:cover; }
+.item-modal .modal-img { width:100%; height:260px; object-fit:contain; padding:16px 18px 8px; background:#fff; }
+.outfit-detail { padding:16px 18px 18px; }
+.outfit-detail-title { font-size:16px; font-weight:700; margin-bottom:6px; }
+.outfit-detail-meta { font-size:12px; color:var(--text-secondary); margin-bottom:14px; }
+.outfit-detail-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:14px; }
+.outfit-detail-piece { min-width:0; }
+.outfit-detail-piece img { width:100%; height:96px; object-fit:contain; background:#fff; border-radius:10px; padding:6px; }
+.outfit-detail-piece-name { margin-top:6px; font-size:10px; line-height:1.3; color:var(--text-primary); text-align:center; word-break:break-all; }
 .item-modal .modal-info { padding:16px 20px; }
 .item-modal .modal-name { font-size:16px; font-weight:600; margin-bottom:4px; }
 .item-modal .modal-color {
@@ -480,13 +467,22 @@ body {
   font-size:12px; color:var(--text-secondary); margin-bottom:12px;
 }
 .item-modal .modal-close {
-  width:100%; padding:12px; border:none;
-  background:var(--accent-light); color:var(--text-primary);
-  font-size:14px; font-weight:500; cursor:pointer;
-  border-radius:0 0 var(--radius-lg) var(--radius-lg);
-  transition:var(--transition);
+  position:static; z-index:3;
+  width:34px; height:34px; padding:0; margin-top:18px;
+  border:1px solid rgba(0,0,0,0.22); border-radius:50%;
+  background:rgba(255,255,255,0.88); color:#111;
+  cursor:pointer; font-size:0; line-height:0;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 8px 20px rgba(0,0,0,0.16);
+  backdrop-filter:blur(12px);
 }
-.item-modal .modal-close:hover { background:var(--accent); color:var(--white); }
+.item-modal .modal-close::before, .item-modal .modal-close::after {
+  content:""; position:absolute; width:13px; height:1.6px;
+  background:#111; border-radius:1px;
+}
+.item-modal .modal-close::before { transform:rotate(45deg); }
+.item-modal .modal-close::after { transform:rotate(-45deg); }
+.item-modal .modal-close:hover { background:rgba(255,255,255,0.95); border-color:rgba(0,0,0,0.34); }
 
 /* ===== Tab Bar ===== */
 .tab-bar {
@@ -521,7 +517,7 @@ body {
 .loading-overlay {
   position:absolute; top:0; left:0;
   width:100%; height:100%;
-  background:rgba(248,248,246,0.95);
+  background:rgba(250,250,250,0.95);
   display:flex; flex-direction:column;
   align-items:center; justify-content:center;
   z-index:100; opacity:0; pointer-events:none;
@@ -567,7 +563,7 @@ body {
     <!-- ===== Match Page ===== -->
     <div class="page match-page" id="page-match">
       <div class="weather-bar">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8B7E74" stroke-width="1.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="1.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
         <span class="w-temp">25°C</span>
         <span>北京 · 晴</span>
       </div>
@@ -582,13 +578,8 @@ body {
 
       <div id="match-categories"></div>
 
-      <div class="preview-strip" id="preview-strip"></div>
-
       <div class="action-bar">
-        <button class="btn-ai-match" onclick="goToAIResult('full')">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg>
-          AI 搭配
-        </button>
+        <button class="btn-ai-match" onclick="goToAIResult('full')">搭一下</button>
         <button class="btn-fav" id="btn-fav" onclick="toggleFav()">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
           收藏
@@ -631,8 +622,8 @@ body {
     <div class="page hidden" id="page-profile">
       <div class="page-header"><h2>我的</h2><span></span></div>
       <div class="profile-header">
-        <div class="profile-avatar"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-        <div class="profile-name">穿搭达人小陈</div>
+        <div class="profile-avatar"><img src="assets/avatar.png" alt="SEVEN"></div>
+        <div class="profile-name">SEVEN</div>
         <div class="profile-stats" id="profile-stats">衣柜：16 件单品</div>
       </div>
       <div class="profile-menu">
@@ -678,7 +669,7 @@ body {
         <button class="back-btn" onclick="closeSubPage('sub-ai-result')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>
         <span class="sub-title">AI 搭配推荐</span>
       </div>
-      <div class="ai-result-weather"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8B7E74" stroke-width="1.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/></svg><span id="result-weather">25°C · 通勤</span></div>
+      <div class="ai-result-weather"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="1.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/></svg><span id="result-weather">25°C · 通勤</span></div>
       <div id="lock-banner"></div>
       <div class="ai-result-items">
         <div class="ai-result-item"><img id="result-top-img" src="" alt=""><div class="item-label"><span id="result-top-name"></span><span class="item-cat">上衣</span></div></div>
@@ -769,8 +760,8 @@ body {
     <div class="modal-content" onclick="event.stopPropagation()">
       <img class="modal-img" id="modal-img" src="" alt="">
       <div class="modal-info"><div class="modal-name" id="modal-name"></div><span class="modal-color" id="modal-color"></span></div>
-      <button class="modal-close" onclick="closeItemModal()">关闭</button>
     </div>
+    <button class="modal-close" onclick="closeItemModal()" aria-label="关闭"></button>
   </div>
 
   <div class="loading-overlay" id="loading"><div class="spinner"></div><div class="loading-text">AI 正在分析…</div></div>
@@ -800,41 +791,54 @@ body {
 // ===== DATA =====
 const wardrobe = {
   tops: [
-    { id:1,  name:'白色 T 恤',     color:'白色', category:'上衣', image:'assets/gen_tshirt_white.jpg' },
-    { id:2,  name:'蓝色衬衫',     color:'蓝色', category:'上衣', image:'assets/gen_shirt_blue.jpg' },
-    { id:3,  name:'米色针织衫',   color:'米色', category:'上衣', image:'assets/gen_knit_beige.jpg' },
-    { id:4,  name:'黑色卫衣',     color:'黑色', category:'上衣', image:'assets/gen_hoodie_black.jpg' },
-    { id:5,  name:'卡其风衣',     color:'卡其', category:'上衣', image:'assets/gen_coat_khaki.jpg' },
-    { id:6,  name:'灰色开衫',     color:'灰色', category:'上衣', image:'assets/gen_cardigan_grey.jpg' },
+    { id:1, name:'橄榄绿羊毛夹克', color:'', category:'\u4e0a\u8863', image:'assets/outfit/%E6%A9%84%E6%A6%84%E7%BB%BF%E7%BE%8A%E6%AF%9B%E5%A4%B9%E5%85%8B.png' },
+    { id:2, name:'红白蓝格纹无袖上衣', color:'', category:'\u4e0a\u8863', image:'assets/outfit/%E7%BA%A2%E7%99%BD%E8%93%9D%E6%A0%BC%E7%BA%B9%E6%97%A0%E8%A2%96%E4%B8%8A%E8%A1%A3.png' },
+    { id:3, name:'粉紫灰格纹短袖T恤', color:'', category:'\u4e0a\u8863', image:'assets/outfit/%E7%B2%89%E7%B4%AB%E7%81%B0%E6%A0%BC%E7%BA%B9%E7%9F%AD%E8%A2%96T%E6%81%A4.png' },
+    { id:4, name:'黑色挂脖荡领背心', color:'', category:'\u4e0a\u8863', image:'assets/outfit/%E9%BB%91%E8%89%B2%E6%8C%82%E8%84%96%E8%8D%A1%E9%A2%86%E8%83%8C%E5%BF%83.png' },
+    { id:5, name:'蓝黄格纹连衣裙', color:'', category:'\u4e0a\u8863', image:'assets/outfit/%E8%93%9D%E9%BB%84%E6%A0%BC%E7%BA%B9%E8%BF%9E%E8%A1%A3%E8%A3%99.png' },
+    { id:6, name:'浅蓝竖条纹长袖衬衫', color:'', category:'\u4e0a\u8863', image:'assets/outfit/%E6%B5%85%E8%93%9D%E7%AB%96%E6%9D%A1%E7%BA%B9%E9%95%BF%E8%A2%96%E8%A1%AC%E8%A1%AB.png' },
+    { id:7, name:'米白色风衣', color:'', category:'\u4e0a\u8863', image:'assets/outfit/%E7%B1%B3%E7%99%BD%E8%89%B2%E9%A3%8E%E8%A1%A3.png' },
+    { id:8, name:'灰色木耳边长袖开衫', color:'', category:'\u4e0a\u8863', image:'assets/outfit/%E7%81%B0%E8%89%B2%E6%9C%A8%E8%80%B3%E8%BE%B9%E9%95%BF%E8%A2%96%E5%BC%80%E8%A1%AB.png' },
+    { id:9, name:'蓝色水洗牛仔夹克', color:'', category:'\u4e0a\u8863', image:'assets/outfit/%E8%93%9D%E8%89%B2%E6%B0%B4%E6%B4%97%E7%89%9B%E4%BB%94%E5%A4%B9%E5%85%8B.png' },
+    { id:10, name:'黑白格纹长袖短款上衣', color:'', category:'\u4e0a\u8863', image:'assets/outfit/%E9%BB%91%E7%99%BD%E6%A0%BC%E7%BA%B9%E9%95%BF%E8%A2%96%E7%9F%AD%E6%AC%BE%E4%B8%8A%E8%A1%A3.png' },
+    { id:11, name:'浅灰色立领短款羽绒服', color:'', category:'\u4e0a\u8863', image:'assets/outfit/%E6%B5%85%E7%81%B0%E8%89%B2%E7%AB%8B%E9%A2%86%E7%9F%AD%E6%AC%BE%E7%BE%BD%E7%BB%92%E6%9C%8D.png' },
+    { id:12, name:'灰色圆领针织开衫', color:'', category:'\u4e0a\u8863', image:'assets/outfit/%E7%81%B0%E8%89%B2%E5%9C%86%E9%A2%86%E9%92%88%E7%BB%87%E5%BC%80%E8%A1%AB.png' },
+    { id:13, name:'深棕色翻领皮夹克', color:'', category:'\u4e0a\u8863', image:'assets/outfit/%E6%B7%B1%E6%A3%95%E8%89%B2%E7%BF%BB%E9%A2%86%E7%9A%AE%E5%A4%B9%E5%85%8B.png' },
   ],
   bottoms: [
-    { id:7,  name:'蓝色牛仔裤',   color:'蓝色', category:'下装', image:'assets/gen_jeans_blue.jpg' },
-    { id:8,  name:'黑色西裤',     color:'黑色', category:'下装', image:'assets/gen_pants_black.jpg' },
-    { id:9,  name:'米色半身裙',   color:'米色', category:'下装', image:'assets/gen_skirt_beige.jpg' },
-    { id:10, name:'灰色运动裤',   color:'灰色', category:'下装', image:'assets/gen_jogger_grey.jpg' },
-    { id:11, name:'白色阔腿裤',   color:'白色', category:'下装', image:'assets/gen_widepants_white.jpg' },
-    { id:12, name:'卡其短裤',     color:'卡其', category:'下装', image:'assets/gen_shorts_khaki.jpg' },
+    { id:101, name:'浅蓝色高腰阔腿牛仔裤', color:'', category:'\u4e0b\u88c5', image:'assets/outfit/%E6%B5%85%E8%93%9D%E8%89%B2%E9%AB%98%E8%85%B0%E9%98%94%E8%85%BF%E7%89%9B%E4%BB%94%E8%A3%A4.png' },
+    { id:102, name:'深蓝色休闲短裤', color:'', category:'\u4e0b\u88c5', image:'assets/outfit/%E6%B7%B1%E8%93%9D%E8%89%B2%E4%BC%91%E9%97%B2%E7%9F%AD%E8%A3%A4.png' },
+    { id:103, name:'深蓝色微喇牛仔裤', color:'', category:'\u4e0b\u88c5', image:'assets/outfit/%E6%B7%B1%E8%93%9D%E8%89%B2%E5%BE%AE%E5%96%87%E7%89%9B%E4%BB%94%E8%A3%A4.png' },
+    { id:104, name:'黑色高腰阔腿牛仔裤', color:'', category:'\u4e0b\u88c5', image:'assets/outfit/%E9%BB%91%E8%89%B2%E9%AB%98%E8%85%B0%E9%98%94%E8%85%BF%E7%89%9B%E4%BB%94%E8%A3%A4.png' },
+    { id:105, name:'灰色竖条纹阔腿裤', color:'', category:'\u4e0b\u88c5', image:'assets/outfit/%E7%81%B0%E8%89%B2%E7%AB%96%E6%9D%A1%E7%BA%B9%E9%98%94%E8%85%BF%E8%A3%A4.png' },
+    { id:106, name:'黑白迷彩工装裤', color:'', category:'\u4e0b\u88c5', image:'assets/outfit/%E9%BB%91%E7%99%BD%E8%BF%B7%E5%BD%A9%E5%B7%A5%E8%A3%85%E8%A3%A4.png' },
+    { id:107, name:'深灰色不规则牛仔半身裙', color:'', category:'\u4e0b\u88c5', image:'assets/outfit/%E6%B7%B1%E7%81%B0%E8%89%B2%E4%B8%8D%E8%A7%84%E5%88%99%E7%89%9B%E4%BB%94%E5%8D%8A%E8%BA%AB%E8%A3%99.png' },
+    { id:108, name:'薄荷绿不规则牛仔半身裙', color:'', category:'\u4e0b\u88c5', image:'assets/outfit/%E8%96%84%E8%8D%B7%E7%BB%BF%E4%B8%8D%E8%A7%84%E5%88%99%E7%89%9B%E4%BB%94%E5%8D%8A%E8%BA%AB%E8%A3%99.png' },
+    { id:109, name:'粉色松紧高腰提花半身裙', color:'', category:'\u4e0b\u88c5', image:'assets/outfit/%E7%B2%89%E8%89%B2%E6%9D%BE%E7%B4%A7%E9%AB%98%E8%85%B0%E6%8F%90%E8%8A%B1%E5%8D%8A%E8%BA%AB%E8%A3%99.png' },
+    { id:110, name:'深蓝色牛仔百褶短裙', color:'', category:'\u4e0b\u88c5', image:'assets/outfit/%E6%B7%B1%E8%93%9D%E8%89%B2%E7%89%9B%E4%BB%94%E7%99%BE%E8%A4%B6%E7%9F%AD%E8%A3%99.png' },
   ],
   shoes: [
-    { id:13, name:'白色运动鞋',   color:'白色', category:'鞋子', image:'assets/gen_sneakers_white.jpg' },
-    { id:14, name:'棕色短靴',     color:'棕色', category:'鞋子', image:'assets/gen_boots_brown.jpg' },
-    { id:15, name:'黑色乐福鞋',   color:'黑色', category:'鞋子', image:'assets/gen_loafers_black.jpg' },
-    { id:16, name:'米色凉鞋',     color:'米色', category:'鞋子', image:'assets/gen_sandals_beige.jpg' },
+    { id:201, name:'黑色厚底切尔西短靴', color:'', category:'\u978b\u5b50', image:'assets/outfit/%E9%BB%91%E8%89%B2%E5%8E%9A%E5%BA%95%E5%88%87%E5%B0%94%E8%A5%BF%E7%9F%AD%E9%9D%B4.png' },
+    { id:202, name:'黑色高筒骑士靴', color:'', category:'\u978b\u5b50', image:'assets/outfit/%E9%BB%91%E8%89%B2%E9%AB%98%E7%AD%92%E9%AA%91%E5%A3%AB%E9%9D%B4.png' },
+    { id:203, name:'粉白拼色珍珠装饰板鞋', color:'', category:'\u978b\u5b50', image:'assets/outfit/%E7%B2%89%E7%99%BD%E6%8B%BC%E8%89%B2%E7%8F%8D%E7%8F%A0%E8%A3%85%E9%A5%B0%E6%9D%BF%E9%9E%8B.png' },
+    { id:204, name:'黑白涂鸦印花板鞋', color:'', category:'\u978b\u5b50', image:'assets/outfit/%E9%BB%91%E7%99%BD%E6%B6%82%E9%B8%A6%E5%8D%B0%E8%8A%B1%E6%9D%BF%E9%9E%8B.png' },
+    { id:205, name:'蓝色牛仔面料蝴蝶结高跟鞋', color:'', category:'\u978b\u5b50', image:'assets/outfit/%E8%93%9D%E8%89%B2%E7%89%9B%E4%BB%94%E9%9D%A2%E6%96%99%E8%9D%B4%E8%9D%B6%E7%BB%93%E9%AB%98%E8%B7%9F%E9%9E%8B.png' },
+    { id:206, name:'姜黄色德训鞋', color:'', category:'\u978b\u5b50', image:'assets/outfit/%E5%A7%9C%E9%BB%84%E8%89%B2%E5%BE%B7%E8%AE%AD%E9%9E%8B.png' },
   ],
   bags: [
-    { id:17, name:'黑色链条包',   color:'黑色', category:'包包', image:'assets/gen_bag_black.jpg' },
-    { id:18, name:'米色托特包',   color:'米色', category:'包包', image:'assets/gen_bag_beige.jpg' },
-    { id:19, name:'棕色肩背包',   color:'棕色', category:'包包', image:'assets/gen_bag_brown.jpg' },
+    { id:301, name:'黑色链条包', color:'黑色', category:'包包', image:'assets/gen_bag_black.jpg' },
+    { id:302, name:'米色托特包', color:'米色', category:'包包', image:'assets/gen_bag_beige.jpg' },
+    { id:303, name:'棕色肩背包', color:'棕色', category:'包包', image:'assets/gen_bag_brown.jpg' },
   ],
   hats: [
-    { id:20, name:'黑色棒球帽',   color:'黑色', category:'帽子', image:'assets/gen_hat_black.jpg' },
-    { id:21, name:'米色草帽',     color:'米色', category:'帽子', image:'assets/gen_hat_beige.jpg' },
-    { id:22, name:'灰色毛线帽',   color:'灰色', category:'帽子', image:'assets/gen_hat_grey.jpg' },
+    { id:401, name:'黑色棒球帽', color:'黑色', category:'帽子', image:'assets/gen_hat_black.jpg' },
+    { id:402, name:'米色草帽', color:'米色', category:'帽子', image:'assets/gen_hat_beige.jpg' },
+    { id:403, name:'灰色毛线帽', color:'灰色', category:'帽子', image:'assets/gen_hat_grey.jpg' },
   ],
   accessories: [
-    { id:23, name:'金色项链',     color:'金色', category:'配饰', image:'assets/gen_acc_gold.jpg' },
-    { id:24, name:'银色耳环',     color:'银色', category:'配饰', image:'assets/gen_acc_silver.jpg' },
-    { id:25, name:'酒红色丝巾',   color:'酒红', category:'配饰', image:'assets/gen_acc_scarf.jpg' },
+    { id:501, name:'金色项链', color:'金色', category:'配饰', image:'assets/gen_acc_gold.jpg' },
+    { id:502, name:'银色耳环', color:'银色', category:'配饰', image:'assets/gen_acc_silver.jpg' },
+    { id:503, name:'酒红色丝巾', color:'酒红', category:'配饰', image:'assets/gen_acc_scarf.jpg' },
   ],
 };
 
@@ -844,12 +848,14 @@ const allItems = [
 ];
 
 const categoryMeta = {
-  tops:       { title:'上衣', key:'tops' },
-  bottoms:    { title:'下装', key:'bottoms' },
-  shoes:      { title:'鞋子', key:'shoes' },
+  tops:       { eyebrow:'TOPS', key:'tops' },
+  bottoms:    { eyebrow:'PANTS', key:'bottoms' },
+  shoes:      { eyebrow:'SHOES', key:'shoes' },
 };
 
 // ===== STATE =====
+let recentOutfitState = [];
+
 const state = {
   selected: { tops:0, bottoms:0, shoes:0 },
   occasion: '上课',
@@ -865,12 +871,12 @@ setTimeout(() => {
   setTimeout(() => document.getElementById('splash').style.display = 'none', 700);
 }, 2800);
 
-// ===== BUILD MATCH PAGE (Transform-based infinite carousel) =====
-// Layout: viewport shows 3 cards. Track has [clone-last ... items 0..N-1 ... clone-first]
-// Position index = the real index of the center card. Transform moves so that card is centered.
-// When animated to clone zone, instantly jump back to real zone (no transition).
+// ===== BUILD MATCH PAGE (Centered carousel) =====
 
-const carouselState = {}; // per-key: { offset (current float position), isAnimating }
+
+const carouselState = {}; // per-key: { virtualIdx, isAnimating }
+const LOOP_COPIES = 3;
+const LOOP_MIDDLE = 1;
 
 function buildMatchPage() {
   const container = document.getElementById('match-categories');
@@ -878,12 +884,13 @@ function buildMatchPage() {
 
   Object.entries(categoryMeta).forEach(([key, meta]) => {
     const items = wardrobe[key];
-    carouselState[key] = { offset: state.selected[key], isAnimating: false };
+    carouselState[key] = { virtualIdx: items.length + state.selected[key], isAnimating: false };
 
     const section = document.createElement('div');
-    section.className = 'picker-section';
+    section.className = `picker-section picker-section-${key}`;
     section.innerHTML = `
-      <div class="picker-label">${meta.title}</div>
+      <div class="picker-label">${meta.eyebrow}</div>
+      <div class="picker-title" id="title-${key}"></div>
       <div class="picker-viewport" id="vp-${key}">
         <div class="picker-track" id="track-${key}"></div>
       </div>
@@ -891,61 +898,93 @@ function buildMatchPage() {
     container.appendChild(section);
 
     const track = section.querySelector('.picker-track');
-    // Build: [clone of last] ... [items] ... [clone of first]
-    track.appendChild(createPickerCard(key, items.length - 1, items[items.length - 1]));
-    items.forEach((item, i) => track.appendChild(createPickerCard(key, i, item)));
-    track.appendChild(createPickerCard(key, 0, items[0]));
+    for (let copy = 0; copy < LOOP_COPIES; copy++) {
+      items.forEach((item, i) => track.appendChild(createPickerCard(key, i, item, copy * items.length + i)));
+    }
 
     updatePickerVisuals(key);
-    setPickerTransform(key, state.selected[key], false);
+    requestAnimationFrame(() => setPickerTransform(key, carouselState[key].virtualIdx, false));
     setupPickerTouch(key);
   });
 
   updatePreview();
 }
 
-function createPickerCard(key, realIdx, item) {
+function createPickerCard(key, realIdx, item, virtualIdx) {
   const card = document.createElement('div');
   card.className = 'picker-card';
   card.dataset.realIdx = realIdx;
+  card.dataset.virtualIdx = virtualIdx;
   card.innerHTML = `
     <img src="${item.image}" alt="${item.name}" loading="lazy">
     <div class="picker-name">${item.name}</div>
   `;
   card.addEventListener('click', () => {
     if (carouselState[key].isAnimating) return;
-    const targetRealIdx = parseInt(card.dataset.realIdx);
-    animatePickerTo(key, targetRealIdx);
+    animatePickerToVirtual(key, parseInt(card.dataset.virtualIdx, 10));
   });
   return card;
 }
 
-function setPickerTransform(key, realIdx, animate) {
+function getTrackTranslateX(track) {
+  const transform = window.getComputedStyle(track).transform;
+  if (!transform || transform === 'none') return 0;
+  const matrix = new DOMMatrixReadOnly(transform);
+  return matrix.m41;
+}
+
+function setPickerTransform(key, virtualIdx, animate) {
   const track = document.getElementById(`track-${key}`);
   const vp = document.getElementById(`vp-${key}`);
   if (!track || !vp) return;
-  const vpWidth = vp.offsetWidth;
-  const cardWidth = vpWidth / 3;
-  // Track position: slot 0 = clone-last, slot 1 = item-0, ..., slot N = item-(N-1), slot N+1 = clone-first
-  // Center slot for realIdx = realIdx + 1
-  const slot = realIdx + 1;
-  const translateX = -(slot * cardWidth) + vpWidth / 2 - cardWidth / 2;
-  track.style.transform = `translateX(${translateX}px)`;
+  const cards = track.querySelectorAll('.picker-card');
+  const selectedCard = cards[virtualIdx];
+  if (!selectedCard) return;
+  track.style.transition = animate ? '' : 'none';
+  const cardCenter = selectedCard.offsetLeft + selectedCard.offsetWidth / 2;
+  const targetX = vp.clientWidth / 2 - cardCenter;
+  track.style.transform = `translate3d(${Math.round(targetX)}px,0,0)`;
+  if (!animate) {
+    track.offsetHeight;
+    track.style.transition = '';
+  }
+}
+
+function normalizeVirtualIndex(key) {
+  const items = wardrobe[key];
+  const n = items.length;
+  const realIdx = ((carouselState[key].virtualIdx % n) + n) % n;
+  carouselState[key].virtualIdx = LOOP_MIDDLE * n + realIdx;
+  state.selected[key] = realIdx;
+  updatePickerVisuals(key);
+  setPickerTransform(key, carouselState[key].virtualIdx, false);
 }
 
 function animatePickerTo(key, realIdx) {
-  const items = wardrobe[key];
-  const n = items.length;
-  carouselState[key].isAnimating = true;
+  const n = wardrobe[key].length;
+  animatePickerToVirtual(key, LOOP_MIDDLE * n + realIdx);
+}
 
-  setPickerTransform(key, realIdx, true);
-  state.selected[key] = realIdx;
+function animatePickerToVirtual(key, virtualIdx) {
+  const n = wardrobe[key].length;
+  carouselState[key].isAnimating = true;
+  carouselState[key].virtualIdx = virtualIdx;
+  state.selected[key] = ((virtualIdx % n) + n) % n;
   updatePickerVisuals(key);
   updatePreview();
 
+  requestAnimationFrame(() => setPickerTransform(key, virtualIdx, true));
+
   setTimeout(() => {
+    normalizeVirtualIndex(key);
     carouselState[key].isAnimating = false;
   }, 380);
+}
+
+function updatePickerTitle(key) {
+  const title = document.getElementById(`title-${key}`);
+  const item = wardrobe[key][state.selected[key]];
+  if (title && item) title.textContent = item.name;
 }
 
 function updatePickerVisuals(key) {
@@ -953,8 +992,9 @@ function updatePickerVisuals(key) {
   if (!track) return;
   const selectedIdx = state.selected[key];
   const n = wardrobe[key].length;
+  updatePickerTitle(key);
   track.querySelectorAll('.picker-card').forEach(card => {
-    const ri = parseInt(card.dataset.realIdx);
+    const ri = parseInt(card.dataset.realIdx, 10);
     card.classList.remove('selected', 'adjacent');
     if (ri === selectedIdx) {
       card.classList.add('selected');
@@ -965,18 +1005,18 @@ function updatePickerVisuals(key) {
   });
 }
 
-// Touch / Mouse drag for infinite carousel
 function setupPickerTouch(key) {
   const vp = document.getElementById(`vp-${key}`);
   const track = document.getElementById(`track-${key}`);
   if (!vp || !track) return;
   const n = wardrobe[key].length;
 
-  let startX = 0, startY = 0, deltaX = 0, isDragging = false, isHorizontal = null;
+  let startX = 0, startY = 0, deltaX = 0, baseX = 0, isDragging = false, isHorizontal = null;
 
   function onStart(clientX, clientY) {
     startX = clientX; startY = clientY;
-    deltaX = 0; isDragging = true; isHorizontal = null;
+    deltaX = 0; baseX = getTrackTranslateX(track);
+    isDragging = true; isHorizontal = null;
     track.classList.add('dragging');
   }
   function onMove(clientX, clientY) {
@@ -988,63 +1028,41 @@ function setupPickerTouch(key) {
     }
     if (!isHorizontal) return;
     deltaX = dx;
-    const vpWidth = vp.offsetWidth;
-    const cardW = vpWidth / 3;
-    const slot = state.selected[key] + 1;
-    const baseX = -(slot * cardW) + vpWidth / 2 - cardW / 2;
-    track.style.transform = `translateX(${baseX + deltaX}px)`;
+    track.style.transform = `translate3d(${Math.round(baseX + deltaX)}px,0,0)`;
   }
   function onEnd() {
     if (!isDragging) return;
     isDragging = false;
     track.classList.remove('dragging');
-    if (!isHorizontal) { setPickerTransform(key, state.selected[key], false); return; }
+    if (!isHorizontal) { setPickerTransform(key, carouselState[key].virtualIdx, false); return; }
 
-    const vpWidth = vp.offsetWidth;
-    const threshold = vpWidth / 6;
-
+    const threshold = vp.clientWidth / 6;
     if (deltaX < -threshold) {
-      // Swipe left -> next
-      let next = (state.selected[key] + 1) % n;
-      animatePickerTo(key, next);
+      animatePickerToVirtual(key, carouselState[key].virtualIdx + 1);
     } else if (deltaX > threshold) {
-      // Swipe right -> prev
-      let prev = (state.selected[key] - 1 + n) % n;
-      animatePickerTo(key, prev);
+      animatePickerToVirtual(key, carouselState[key].virtualIdx - 1);
     } else {
-      // Snap back
-      setPickerTransform(key, state.selected[key], true);
+      setPickerTransform(key, carouselState[key].virtualIdx, true);
     }
     isHorizontal = null;
   }
 
-  // Touch events
   vp.addEventListener('touchstart', e => { onStart(e.touches[0].clientX, e.touches[0].clientY); }, { passive: true });
   vp.addEventListener('touchmove', e => { onMove(e.touches[0].clientX, e.touches[0].clientY); }, { passive: true });
   vp.addEventListener('touchend', onEnd, { passive: true });
-
-  // Mouse events (desktop)
   vp.addEventListener('mousedown', e => { onStart(e.clientX, e.clientY); e.preventDefault(); });
   vp.addEventListener('mousemove', e => { onMove(e.clientX, e.clientY); });
   vp.addEventListener('mouseup', onEnd);
-  vp.addEventListener('mouseleave', () => { if (isDragging) { isDragging = false; track.classList.remove('dragging'); setPickerTransform(key, state.selected[key], false); } });
-}
-
-function updatePreview() {
-  const strip = document.getElementById('preview-strip');
-  const cats = ['tops','bottoms','shoes'];
-
-  let html = '<div class="preview-strip-title">当前搭配</div><div class="preview-items-row">';
-  cats.forEach(cat => {
-    const items = wardrobe[cat];
-    const idx = state.selected[cat] || 0;
-    if (items && items[idx]) {
-      html += `<div class="preview-thumb"><img src="${items[idx].image}" alt=""></div>`;
+  vp.addEventListener('mouseleave', () => {
+    if (isDragging) {
+      isDragging = false;
+      track.classList.remove('dragging');
+      setPickerTransform(key, carouselState[key].virtualIdx, false);
     }
   });
-  html += '</div><div class="preview-score">✨ 搭配指数 85 分</div>';
-  strip.innerHTML = html;
 }
+
+function updatePreview() {}
 
 // ===== OCCASION =====
 document.querySelectorAll('.occasion-btn').forEach(btn => {
@@ -1186,9 +1204,27 @@ function renderWardrobe() {
 function openItemModal(id) {
   const item = allItems.find(i => i.id === id);
   if (!item) return;
-  document.getElementById('modal-img').src = item.image;
-  document.getElementById('modal-name').textContent = item.name;
-  document.getElementById('modal-color').textContent = item.color;
+  document.querySelector('#item-modal .modal-content').innerHTML = `
+    <img class="modal-img" id="modal-img" src="${item.image}" alt="">
+    <div class="modal-info"><div class="modal-name">${item.name}</div><span class="modal-color">${item.color}</span></div>
+  `;
+  document.getElementById('item-modal').classList.add('show');
+}
+
+function openRecentOutfit(i) {
+  const outfit = recentOutfitState[i];
+  if (!outfit) return;
+  document.querySelector('#item-modal .modal-content').innerHTML = `
+    <div class="outfit-detail">
+      <div class="outfit-detail-title">穿搭详情</div>
+      <div class="outfit-detail-meta">${outfit.meta}</div>
+      <div class="outfit-detail-grid">
+        <div class="outfit-detail-piece"><img src="${outfit.top.image}" alt=""><div class="outfit-detail-piece-name">${outfit.top.name}</div></div>
+        <div class="outfit-detail-piece"><img src="${outfit.bottom.image}" alt=""><div class="outfit-detail-piece-name">${outfit.bottom.name}</div></div>
+        <div class="outfit-detail-piece"><img src="${outfit.shoes.image}" alt=""><div class="outfit-detail-piece-name">${outfit.shoes.name}</div></div>
+      </div>
+    </div>
+  `;
   document.getElementById('item-modal').classList.add('show');
 }
 function closeItemModal() { document.getElementById('item-modal').classList.remove('show'); }
@@ -1213,10 +1249,21 @@ function closeSubPage(id) {
 }
 
 // ===== AI API 配置（直接调用 DeepSeek） =====
-const DEEPSEEK_KEY = 'your-api-key-here'; // 去 https://platform.deepseek.com 获取
+// Demo 模式：默认不填 key，AI 返回模拟结果、不发网络请求，任何环境都能打开演示。
+// 想接入真实 AI：去 https://platform.deepseek.com 申请 key 填到下面即可。
+// ⚠️ 安全提醒：真实 key 不要提交到公开仓库（前端代码对访问者可见），线上部署请走 api/chat.js 代理。
+const DEEPSEEK_KEY = ''; // 本地 Demo 留空即可
 const DEEPSEEK_URL = 'https://api.deepseek.com/v1/chat/completions';
 
+// 未配置有效 key 时跳过网络请求，直接走 mock 兜底
+function hasAIConfigured() {
+  return DEEPSEEK_KEY && DEEPSEEK_KEY.trim() !== ''
+    && !DEEPSEEK_KEY.includes('your-api-key')
+    && !DEEPSEEK_KEY.includes('sk-your-key');
+}
+
 async function callDeepSeek(systemPrompt, userPrompt) {
+  if (!hasAIConfigured()) return null;
   try {
     const res = await fetch(DEEPSEEK_URL, {
       method: 'POST',
@@ -1225,11 +1272,13 @@ async function callDeepSeek(systemPrompt, userPrompt) {
         'Authorization': `Bearer ${DEEPSEEK_KEY}`,
       },
       body: JSON.stringify({
-        model: 'deepseek-chat',
+        model: 'deepseek-v4-flash', // 2026-07 起 deepseek-chat 别名已弃用
         messages: [
           { role: 'system', content: systemPrompt },
           { role: 'user', content: userPrompt }
         ],
+        thinking: { type: 'disabled' }, // 关思考：搭配任务是规则跟随，不需推理链，省延迟省token
+        response_format: { type: 'json_object' }, // 强制合法 JSON，替代正则抽取
         temperature: 0.7,
         max_tokens: 800,
       }),
@@ -1379,7 +1428,7 @@ function toggleResultFav() {
 
 // ===== CONSULT =====
 function simulateUpload() {
-  document.getElementById('upload-area').innerHTML = `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#8B7E74" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg><p style="color:#8B7E74">上传成功</p>`;
+  document.getElementById('upload-area').innerHTML = `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg><p style="color:#1A1A1A">上传成功</p>`;
   showToast('图片上传成功');
 }
 async function runAnalysis() {
@@ -1454,17 +1503,25 @@ function removeFav(i) { state.favorites.splice(i,1); renderFavorites(); document
 function renderRecent() {
   const c = document.getElementById('recent-outfits');
   const samples = [];
-  for(let i=0;i<6;i++){
+  for(let i=0;i<7;i++){
     samples.push({
       top: wardrobe.tops[Math.floor(Math.random()*wardrobe.tops.length)],
       bottom: wardrobe.bottoms[Math.floor(Math.random()*wardrobe.bottoms.length)],
       shoes: wardrobe.shoes[Math.floor(Math.random()*wardrobe.shoes.length)],
     });
   }
-  c.innerHTML = samples.map(s=>`
-    <div class="recent-outfit-card">
+  const temp = (document.querySelector('.w-temp')?.textContent || '25°C').trim();
+  const city = currentCity || '北京';
+  recentOutfitState = samples.map((s, i)=>{
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    const date = d.toLocaleDateString('zh-CN', { month:'numeric', day:'numeric' });
+    return {...s, meta:`${date} · ${temp} · ${city}`};
+  });
+  c.innerHTML = recentOutfitState.map((s, i)=>`
+    <div class="recent-outfit-card" onclick="openRecentOutfit(${i})">
       <div class="outfit-imgs"><img src="${s.top.image}" alt=""><img src="${s.bottom.image}" alt=""><img src="${s.shoes.image}" alt=""></div>
-      <div class="outfit-label">${s.top.name} · ${s.bottom.name}</div>
+      <div class="outfit-label">${s.meta}</div>
     </div>
   `).join('');
 }
@@ -1713,9 +1770,42 @@ function showToast(msg) {
 
 // ===== INIT =====
 buildMatchPage();
+window.addEventListener('resize', () => {
+  Object.keys(categoryMeta).forEach(key => normalizeVirtualIndex(key));
+});
+window.addEventListener('load', () => {
+  Object.keys(categoryMeta).forEach(key => normalizeVirtualIndex(key));
+});
 buildWardrobeTabs();
 renderWardrobe();
 renderRecent();
 </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
